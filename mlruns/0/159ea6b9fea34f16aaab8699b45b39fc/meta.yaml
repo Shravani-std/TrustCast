@@ -1,0 +1,15 @@
+artifact_uri: file:///media/shrav/New%20Volume/Mega_Project/TrustCast/mlruns/0/159ea6b9fea34f16aaab8699b45b39fc/artifacts
+end_time: 1760375286359
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 159ea6b9fea34f16aaab8699b45b39fc
+run_name: spiffy-worm-421
+run_uuid: 159ea6b9fea34f16aaab8699b45b39fc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1760375285102
+status: 3
+tags: []
+user_id: shrav

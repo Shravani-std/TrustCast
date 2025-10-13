@@ -1,6 +1,7 @@
 fastapi
 uvicorn[standard]
 pandas
+python=3.11.0
 numpy
 scikit-learn
 pyarrow
