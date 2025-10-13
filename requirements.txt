@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pandas
+numpy
+scikit-learn
+pyarrow
+joblib
+torch           
+matplotlib
+mlflow
+xgboost
+optuna
+pydantic
+python-dotenv
