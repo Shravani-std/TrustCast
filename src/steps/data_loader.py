@@ -16,6 +16,7 @@ class DataLoader:
             start = time.time()
             result = func(*args, **kwargs)
             end = time.time()
+            
             logger.info(f"'{func.__name__}' executed in {end - start:.4f}s")
             print(f"'{func.__name__}' executed in {end - start:.4f}s")
             return result
