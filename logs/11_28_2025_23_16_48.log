@@ -1,0 +1,3 @@
+2025-11-28 23:16:48,270 - MLProjectLogger - INFO - ===== Data Split Step Started =====
+2025-11-28 23:16:48,270 - MLProjectLogger - ERROR - Data split step failed.
+2025-11-28 23:16:48,270 - MLProjectLogger - ERROR - Error occurred in python script name [/media/shrav/New Volume/Mega_Project/TrustCast/src/exception/exception_handle.py] line number [12] error message ['NoneType' object has no attribute 'tb_next']

@@ -1,0 +1,10 @@
+2025-11-28 23:22:11,167 - MLProjectLogger - INFO - ===== Data Split Step Started =====
+2025-11-28 23:22:11,565 - MLProjectLogger - INFO - Loaded engineered dataset from /media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_processed.csv with shape (211043, 41)
+2025-11-28 23:22:11,565 - MLProjectLogger - INFO - Starting train/test/val split...
+2025-11-28 23:22:11,567 - MLProjectLogger - WARNING - Target column 'trust_score' not found. Falling back to unsupervised row-wise split.
+2025-11-28 23:22:11,611 - MLProjectLogger - INFO - Split complete. Train shape: (147730, 41), Val shape: (31656, 41), Test shape: (31657, 41)
+2025-11-28 23:22:14,422 - MLProjectLogger - INFO - Saved splits to:
+  Train: /media/shrav/New Volume/Mega_Project/TrustCast/data/train.csv ((147730, 41))
+  Val:   /media/shrav/New Volume/Mega_Project/TrustCast/data/val.csv ((31656, 41))
+  Test:  /media/shrav/New Volume/Mega_Project/TrustCast/data/test.csv ((31657, 41))
+2025-11-28 23:22:14,470 - MLProjectLogger - INFO - ===== Data Split Step Finished Successfully =====

@@ -1,0 +1,57 @@
+1. Create Environment
+        conda --version
+        conda create --name trustcast python=3.12
+        conda activate trustcast
+2. Install required libraries
+        pip install -r requirements.txt
+3. version problem solution:  pip install pydantic-settings>=2.5.2 rich>=13.9.4 pygments>=2.4.1 traitlets>=5.3 ipython==8.12.3
+4. Zenml setup: 
+        pip install zenml["server"]
+        zenml up
+5. MLflow integrations:
+        zenml integration install mlflow -y
+        pip install zenml[mlflow]
+        zenml integration install mlflow
+        zenml init
+6. Register MLflow as an experiment tracker
+        zenml experiment-tracker register trustcast_tracker --flavor=mlflow
+        zenml experiment-tracker list
+
+        zenml stack register trustcast_stack -a local -o local -e trustcast_tracker
+        zenml stack set trustcast_stack
+        zenml stack describe
+
+
+
+To run cmds:
+1. conda activate trustcast
+2. zenml up
+3. cd frontend
+4. npm run dev
+
+
+push new code in github:
+git add .
+git commit -m "update"
+git push -u origin main
+
+pill cmds:
+git pull origin main
+
+
+
+To push Large File like .csv files
+sudo apt-get install git-lfs
+git lfs track "*.csv"
+git add .gitattributes
+git commit -m "Track CSV files with Git LFS"
+git add data/*.csv --force
+git commit -m "Move large CSVs to LFS"
+git push
+
+Good practice Store them in:
+Google Drive
+AWS S3
+HuggingFace Datasets
+ZenML artifact store
+Kaggle Datasets

@@ -1,9 +1,9 @@
 fastapi
 uvicorn[standard]
 pandas
-python=3.11.0
+# python=3.11.0
 numpy
-scikit-learn
+scikit-learn==1.5.2
 pyarrow
 joblib
 torch           
