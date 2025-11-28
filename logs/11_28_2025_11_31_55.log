@@ -1,0 +1,3 @@
+2025-11-28 11:31:55,539 - MLProjectLogger - INFO - Starting feature engineering process...
+2025-11-28 11:31:55,539 - MLProjectLogger - ERROR - Feature engineering failed.
+2025-11-28 11:31:55,539 - MLProjectLogger - ERROR - Error occurred in python script name [/home/shrav/miniconda3/envs/trustcast/lib/python3.11/site-packages/pandas/io/common.py] line number [873] error message [[Errno 2] No such file or directory: '/media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_preocessed.csv']

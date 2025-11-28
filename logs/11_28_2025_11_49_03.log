@@ -1,0 +1,31 @@
+2025-11-28 11:49:03,143 - MLProjectLogger - INFO - Starting ETL process for network dataset...
+2025-11-28 11:49:03,476 - MLProjectLogger - INFO - Loaded dataset from /media/shrav/New Volume1/Mega_Project/TrustCast/data/train_test_network.csv with shape (211043, 44)
+2025-11-28 11:49:03,477 - MLProjectLogger - INFO - Starting preprocessing of dataset...
+2025-11-28 11:49:03,489 - MLProjectLogger - INFO - Dropped columns: ['service', 'missed_bytes', 'src_ip_bytes', 'dst_ip_bytes', 'dns_qclass', 'dns_qtype', 'dns_rcode', 'dns_AA', 'dns_RD', 'dns_RA', 'dns_rejected', 'ssl_version', 'ssl_resumed', 'ssl_established', 'http_trans_depth', 'http_method', 'http_uri', 'http_version', 'http_user_agent', 'http_orig_mime_types', 'http_resp_mime_types', 'http_request_body_len', 'http_response_body_len']
+2025-11-28 11:49:03,501 - MLProjectLogger - INFO - Categorical columns: ['src_ip', 'dst_ip', 'proto', 'conn_state', 'dns_query', 'ssl_cipher', 'ssl_subject', 'ssl_issuer', 'weird_name', 'weird_addl', 'weird_notice', 'type']
+2025-11-28 11:49:03,501 - MLProjectLogger - INFO - Numerical columns: ['src_port', 'dst_port', 'duration', 'src_bytes', 'dst_bytes', 'src_pkts', 'dst_pkts', 'http_status_code', 'label']
+2025-11-28 11:49:03,529 - MLProjectLogger - INFO - Numerical columns scaled successfully.
+2025-11-28 11:49:03,529 - MLProjectLogger - INFO - Fitting CategoricalEncoder with method=onehot on columns=['proto', 'conn_state', 'type']
+2025-11-28 11:49:03,540 - MLProjectLogger - INFO - CategoricalEncoder fitting completed successfully.
+2025-11-28 11:49:03,540 - MLProjectLogger - INFO - Transforming dataframe using method=onehot on columns=['proto', 'conn_state', 'type']
+2025-11-28 11:49:03,614 - MLProjectLogger - INFO - One-hot encoding applied to column: proto
+2025-11-28 11:49:03,678 - MLProjectLogger - INFO - One-hot encoding applied to column: conn_state
+2025-11-28 11:49:03,768 - MLProjectLogger - INFO - One-hot encoding applied to column: type
+2025-11-28 11:49:03,768 - MLProjectLogger - INFO - CategoricalEncoder transformation completed successfully.
+2025-11-28 11:49:03,771 - MLProjectLogger - INFO - Fitting CategoricalEncoder with method=ordinal on columns=['src_ip', 'dst_ip', 'dns_query', 'ssl_cipher', 'ssl_subject', 'ssl_issuer', 'weird_name', 'weird_addl', 'weird_notice']
+2025-11-28 11:49:03,786 - MLProjectLogger - INFO - CategoricalEncoder fitting completed successfully.
+2025-11-28 11:49:03,787 - MLProjectLogger - INFO - Transforming dataframe using method=ordinal on columns=['src_ip', 'dst_ip', 'dns_query', 'ssl_cipher', 'ssl_subject', 'ssl_issuer', 'weird_name', 'weird_addl', 'weird_notice']
+2025-11-28 11:49:03,823 - MLProjectLogger - INFO - Label encoding applied to column: src_ip
+2025-11-28 11:49:03,835 - MLProjectLogger - INFO - Label encoding applied to column: dst_ip
+2025-11-28 11:49:03,846 - MLProjectLogger - INFO - Label encoding applied to column: dns_query
+2025-11-28 11:49:03,857 - MLProjectLogger - INFO - Label encoding applied to column: ssl_cipher
+2025-11-28 11:49:03,868 - MLProjectLogger - INFO - Label encoding applied to column: ssl_subject
+2025-11-28 11:49:03,879 - MLProjectLogger - INFO - Label encoding applied to column: ssl_issuer
+2025-11-28 11:49:03,890 - MLProjectLogger - INFO - Label encoding applied to column: weird_name
+2025-11-28 11:49:03,900 - MLProjectLogger - INFO - Label encoding applied to column: weird_addl
+2025-11-28 11:49:03,913 - MLProjectLogger - INFO - Label encoding applied to column: weird_notice
+2025-11-28 11:49:03,913 - MLProjectLogger - INFO - CategoricalEncoder transformation completed successfully.
+2025-11-28 11:49:03,917 - MLProjectLogger - INFO - Preprocessing completed successfully.
+2025-11-28 11:49:03,918 - MLProjectLogger - INFO - Preprocessed dataset shape: (211043, 41)
+2025-11-28 11:49:03,918 - MLProjectLogger - ERROR - ETL process failed.
+2025-11-28 11:49:03,918 - MLProjectLogger - ERROR - Error occurred in python script name [/home/shrav/miniconda3/envs/trustcast/lib/python3.11/site-packages/pandas/io/common.py] line number [616] error message [Cannot save file into a non-existent directory: '/media/shrav/New Volume/Mega_Project/TrustCast/data']

@@ -1,0 +1,8 @@
+2025-11-28 17:45:18,337 - MLProjectLogger - INFO - ===== Data Split Step Started =====
+2025-11-28 17:45:18,871 - MLProjectLogger - INFO - Loaded engineered dataset from /media/shrav/New Volume/Mega_Project/TrustCast/data/feature_engineering.csv with shape (211043, 54)
+2025-11-28 17:45:18,871 - MLProjectLogger - INFO - Starting train/test/val split...
+2025-11-28 17:45:18,872 - MLProjectLogger - INFO - Using 'trust_score' as target column for supervised split.
+2025-11-28 17:45:18,903 - MLProjectLogger - ERROR - Error occured during train/val/test split
+2025-11-28 17:45:18,903 - MLProjectLogger - ERROR - Error occurred in python script name [/home/shrav/.local/lib/python3.11/site-packages/sklearn/model_selection/_split.py] line number [2342] error message [The least populated class in y has only 1 member, which is too few. The minimum number of groups for any class cannot be less than 2.]
+2025-11-28 17:45:18,903 - MLProjectLogger - ERROR - Data split step failed.
+2025-11-28 17:45:18,903 - MLProjectLogger - ERROR - Error occurred in python script name [/media/shrav/New Volume/Mega_Project/TrustCast/src/steps/data_split.py] line number [98] error message [Error occurred in python script name [/home/shrav/.local/lib/python3.11/site-packages/sklearn/model_selection/_split.py] line number [2342] error message [The least populated class in y has only 1 member, which is too few. The minimum number of groups for any class cannot be less than 2.]]

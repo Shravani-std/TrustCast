@@ -1,0 +1,30 @@
+2025-11-28 11:50:51,609 - MLProjectLogger - INFO - Starting ETL process for network dataset...
+2025-11-28 11:50:51,948 - MLProjectLogger - INFO - Loaded dataset from /media/shrav/New Volume1/Mega_Project/TrustCast/data/train_test_network.csv with shape (211043, 44)
+2025-11-28 11:50:51,948 - MLProjectLogger - INFO - Starting preprocessing of dataset...
+2025-11-28 11:50:51,960 - MLProjectLogger - INFO - Dropped columns: ['service', 'missed_bytes', 'src_ip_bytes', 'dst_ip_bytes', 'dns_qclass', 'dns_qtype', 'dns_rcode', 'dns_AA', 'dns_RD', 'dns_RA', 'dns_rejected', 'ssl_version', 'ssl_resumed', 'ssl_established', 'http_trans_depth', 'http_method', 'http_uri', 'http_version', 'http_user_agent', 'http_orig_mime_types', 'http_resp_mime_types', 'http_request_body_len', 'http_response_body_len']
+2025-11-28 11:50:51,972 - MLProjectLogger - INFO - Categorical columns: ['src_ip', 'dst_ip', 'proto', 'conn_state', 'dns_query', 'ssl_cipher', 'ssl_subject', 'ssl_issuer', 'weird_name', 'weird_addl', 'weird_notice', 'type']
+2025-11-28 11:50:51,972 - MLProjectLogger - INFO - Numerical columns: ['src_port', 'dst_port', 'duration', 'src_bytes', 'dst_bytes', 'src_pkts', 'dst_pkts', 'http_status_code', 'label']
+2025-11-28 11:50:51,999 - MLProjectLogger - INFO - Numerical columns scaled successfully.
+2025-11-28 11:50:52,000 - MLProjectLogger - INFO - Fitting CategoricalEncoder with method=onehot on columns=['proto', 'conn_state', 'type']
+2025-11-28 11:50:52,009 - MLProjectLogger - INFO - CategoricalEncoder fitting completed successfully.
+2025-11-28 11:50:52,009 - MLProjectLogger - INFO - Transforming dataframe using method=onehot on columns=['proto', 'conn_state', 'type']
+2025-11-28 11:50:52,070 - MLProjectLogger - INFO - One-hot encoding applied to column: proto
+2025-11-28 11:50:52,130 - MLProjectLogger - INFO - One-hot encoding applied to column: conn_state
+2025-11-28 11:50:52,204 - MLProjectLogger - INFO - One-hot encoding applied to column: type
+2025-11-28 11:50:52,204 - MLProjectLogger - INFO - CategoricalEncoder transformation completed successfully.
+2025-11-28 11:50:52,207 - MLProjectLogger - INFO - Fitting CategoricalEncoder with method=ordinal on columns=['src_ip', 'dst_ip', 'dns_query', 'ssl_cipher', 'ssl_subject', 'ssl_issuer', 'weird_name', 'weird_addl', 'weird_notice']
+2025-11-28 11:50:52,223 - MLProjectLogger - INFO - CategoricalEncoder fitting completed successfully.
+2025-11-28 11:50:52,223 - MLProjectLogger - INFO - Transforming dataframe using method=ordinal on columns=['src_ip', 'dst_ip', 'dns_query', 'ssl_cipher', 'ssl_subject', 'ssl_issuer', 'weird_name', 'weird_addl', 'weird_notice']
+2025-11-28 11:50:52,265 - MLProjectLogger - INFO - Label encoding applied to column: src_ip
+2025-11-28 11:50:52,277 - MLProjectLogger - INFO - Label encoding applied to column: dst_ip
+2025-11-28 11:50:52,288 - MLProjectLogger - INFO - Label encoding applied to column: dns_query
+2025-11-28 11:50:52,299 - MLProjectLogger - INFO - Label encoding applied to column: ssl_cipher
+2025-11-28 11:50:52,310 - MLProjectLogger - INFO - Label encoding applied to column: ssl_subject
+2025-11-28 11:50:52,320 - MLProjectLogger - INFO - Label encoding applied to column: ssl_issuer
+2025-11-28 11:50:52,332 - MLProjectLogger - INFO - Label encoding applied to column: weird_name
+2025-11-28 11:50:52,342 - MLProjectLogger - INFO - Label encoding applied to column: weird_addl
+2025-11-28 11:50:52,355 - MLProjectLogger - INFO - Label encoding applied to column: weird_notice
+2025-11-28 11:50:52,355 - MLProjectLogger - INFO - CategoricalEncoder transformation completed successfully.
+2025-11-28 11:50:52,358 - MLProjectLogger - INFO - Preprocessing completed successfully.
+2025-11-28 11:50:52,358 - MLProjectLogger - INFO - Preprocessed dataset shape: (211043, 41)
+2025-11-28 11:50:55,287 - MLProjectLogger - INFO - Processed dataset saved at /media/shrav/New Volume1/Mega_Project/TrustCast/data/dataset_processed.csv

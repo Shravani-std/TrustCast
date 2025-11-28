@@ -1,0 +1,8 @@
+2025-11-28 17:47:36,138 - MLProjectLogger - INFO - ===== Data Split Step Started =====
+2025-11-28 17:47:36,641 - MLProjectLogger - INFO - Loaded engineered dataset from /media/shrav/New Volume/Mega_Project/TrustCast/data/feature_engineering.csv with shape (211043, 54)
+2025-11-28 17:47:36,641 - MLProjectLogger - INFO - Starting train/test/val split...
+2025-11-28 17:47:36,641 - MLProjectLogger - INFO - Using 'trust_score' as target column for supervised split.
+2025-11-28 17:47:36,710 - MLProjectLogger - ERROR - Error occured during train/val/test split
+2025-11-28 17:47:36,710 - MLProjectLogger - ERROR - Error occurred in python script name [/media/shrav/New Volume/Mega_Project/TrustCast/src/steps/data_split.py] line number [56] error message ['DataSplitter' object has no attribute 'stratify_y_temp']
+2025-11-28 17:47:36,710 - MLProjectLogger - ERROR - Data split step failed.
+2025-11-28 17:47:36,710 - MLProjectLogger - ERROR - Error occurred in python script name [/media/shrav/New Volume/Mega_Project/TrustCast/src/steps/data_split.py] line number [98] error message [Error occurred in python script name [/media/shrav/New Volume/Mega_Project/TrustCast/src/steps/data_split.py] line number [56] error message ['DataSplitter' object has no attribute 'stratify_y_temp']]

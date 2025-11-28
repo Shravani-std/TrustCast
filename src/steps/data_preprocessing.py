@@ -153,24 +153,24 @@ class DataPreprocessor:
             raise CustomException(e, sys)
 
 
-if __name__ == "__main__":
-    try:
-        logger.info("Starting ETL process for network dataset...")
+# if __name__ == "__main__":
+#     try:
+#         logger.info("Starting ETL process for network dataset...")
 
      
-        input_file = "/media/shrav/New Volume/Mega_Project/TrustCast/data/train_test_network.csv"
-        df = pd.read_csv(input_file)
-        logger.info(f"Loaded dataset from {input_file} with shape {df.shape}")
+#         input_file = "/media/shrav/New Volume1/Mega_Project/TrustCast/data/train_test_network.csv"
+#         df = pd.read_csv(input_file)
+#         logger.info(f"Loaded dataset from {input_file} with shape {df.shape}")
 
-        preprocessor = DataPreprocessor()
-        df_processed = preprocessor.preprocess(df)
-        logger.info(f"Preprocessed dataset shape: {df_processed.shape}")
+#         preprocessor = DataPreprocessor()
+#         df_processed = preprocessor.preprocess(df)
+#         logger.info(f"Preprocessed dataset shape: {df_processed.shape}")
 
      
-        output_file = "/media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_processed.csv"
-        df_processed.to_csv(output_file, index=False)
-        logger.info(f"Processed dataset saved at {output_file}")
+#         output_file = "/media/shrav/New Volume1/Mega_Project/TrustCast/data/dataset_processed.csv"
+#         df_processed.to_csv(output_file, index=False)
+#         logger.info(f"Processed dataset saved at {output_file}")
 
-    except Exception as e:
-        logger.error("ETL process failed.")
-        raise CustomException(e, sys)
+#     except Exception as e:
+#         logger.error("ETL process failed.")
+#         raise CustomException(e, sys)
