@@ -13,7 +13,8 @@ from sklearn.metrics import f1_score, precision_recall_fscore_support, roc_auc_s
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
-
+from src.logger.logging_handle import logger
+from src.exception.exception_handle import CustomException
 # xgboost & lightgbm may not be installed in minimal env
 try:
     import xgboost as xgb
@@ -33,9 +34,7 @@ try:
 except Exception:
     torch = None
 
-# Project exception + logger
-from src.exception.exception_handle import CustomException
-from src.logger.logging_handle import logger
+
 
 
 def load_dataframe(path: str) -> pd.DataFrame:
@@ -87,88 +86,88 @@ def evaluate_model(y_true: np.ndarray, y_pred: np.ndarray, y_score: np.ndarray =
 
 
 
-# Torch simple MLP
-class TorchMLP(nn.Module):
-    def __init__(self, input_dim: int, hidden: int = 128, n_classes: int = 2):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(input_dim, hidden),
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(hidden, hidden // 2),
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(hidden // 2, n_classes)
-        )
+# # Torch simple MLP
+# class TorchMLP(nn.Module):
+#     def __init__(self, input_dim: int, hidden: int = 128, n_classes: int = 2):
+#         super().__init__()
+#         self.net = nn.Sequential(
+#             nn.Linear(input_dim, hidden),
+#             nn.ReLU(),
+#             nn.Dropout(0.2),
+#             nn.Linear(hidden, hidden // 2),
+#             nn.ReLU(),
+#             nn.Dropout(0.2),
+#             nn.Linear(hidden // 2, n_classes)
+#         )
 
-    def forward(self, x):
-        return self.net(x)
+#     def forward(self, x):
+#         return self.net(x)
 
 
-def train_torch_mlp(X_train: np.ndarray, y_train: np.ndarray,
-                    X_val: np.ndarray, y_val: np.ndarray,
-                    n_classes: int, epochs: int = 30, batch_size: int = 256, lr: float = 1e-3,
-                    device: str = "cpu") -> Tuple[nn.Module, Dict]:
-    if torch is None:
-        raise RuntimeError("torch not installed; cannot train torch MLP.")
+# def train_torch_mlp(X_train: np.ndarray, y_train: np.ndarray,
+#                     X_val: np.ndarray, y_val: np.ndarray,
+#                     n_classes: int, epochs: int = 30, batch_size: int = 256, lr: float = 1e-3,
+#                     device: str = "cpu") -> Tuple[nn.Module, Dict]:
+#     if torch is None:
+#         raise RuntimeError("torch not installed; cannot train torch MLP.")
 
-    device = torch.device(device)
-    model = TorchMLP(input_dim=X_train.shape[1], hidden=128, n_classes=n_classes).to(device)
-    criterion = nn.CrossEntropyLoss()
-    optim = torch.optim.Adam(model.parameters(), lr=lr)
+#     device = torch.device(device)
+#     model = TorchMLP(input_dim=X_train.shape[1], hidden=128, n_classes=n_classes).to(device)
+#     criterion = nn.CrossEntropyLoss()
+#     optim = torch.optim.Adam(model.parameters(), lr=lr)
 
-    train_ds = data_utils.TensorDataset(torch.tensor(X_train, dtype=torch.float32), torch.tensor(y_train, dtype=torch.long))
-    val_ds = data_utils.TensorDataset(torch.tensor(X_val, dtype=torch.float32), torch.tensor(y_val, dtype=torch.long))
+#     train_ds = data_utils.TensorDataset(torch.tensor(X_train, dtype=torch.float32), torch.tensor(y_train, dtype=torch.long))
+#     val_ds = data_utils.TensorDataset(torch.tensor(X_val, dtype=torch.float32), torch.tensor(y_val, dtype=torch.long))
 
-    train_loader = data_utils.DataLoader(train_ds, batch_size=batch_size, shuffle=True)
-    val_loader = data_utils.DataLoader(val_ds, batch_size=batch_size, shuffle=False)
+#     train_loader = data_utils.DataLoader(train_ds, batch_size=batch_size, shuffle=True)
+#     val_loader = data_utils.DataLoader(val_ds, batch_size=batch_size, shuffle=False)
 
-    best_val_f1 = -1.0
-    best_state = None
+#     best_val_f1 = -1.0
+#     best_state = None
 
-    for ep in range(1, epochs + 1):
-        model.train()
-        total_loss = 0.0
-        for xb, yb in train_loader:
-            xb = xb.to(device); yb = yb.to(device)
-            logits = model(xb)
-            loss = criterion(logits, yb)
-            optim.zero_grad()
-            loss.backward()
-            optim.step()
-            total_loss += loss.item() * xb.shape[0]
+#     for ep in range(1, epochs + 1):
+#         model.train()
+#         total_loss = 0.0
+#         for xb, yb in train_loader:
+#             xb = xb.to(device); yb = yb.to(device)
+#             logits = model(xb)
+#             loss = criterion(logits, yb)
+#             optim.zero_grad()
+#             loss.backward()
+#             optim.step()
+#             total_loss += loss.item() * xb.shape[0]
 
-        # validation
-        model.eval()
-        preds = []
-        probs = []
-        trues = []
-        with torch.no_grad():
-            for xb, yb in val_loader:
-                xb = xb.to(device)
-                yb = yb.to(device)
-                logits = model(xb)
-                prob = torch.softmax(logits, dim=1).cpu().numpy()
-                pred = prob.argmax(axis=1)
-                preds.append(pred); probs.append(prob); trues.append(yb.cpu().numpy())
+#         # validation
+#         model.eval()
+#         preds = []
+#         probs = []
+#         trues = []
+#         with torch.no_grad():
+#             for xb, yb in val_loader:
+#                 xb = xb.to(device)
+#                 yb = yb.to(device)
+#                 logits = model(xb)
+#                 prob = torch.softmax(logits, dim=1).cpu().numpy()
+#                 pred = prob.argmax(axis=1)
+#                 preds.append(pred); probs.append(prob); trues.append(yb.cpu().numpy())
 
-        preds = np.concatenate(preds)
-        probs = np.concatenate(probs)
-        trues = np.concatenate(trues)
+#         preds = np.concatenate(preds)
+#         probs = np.concatenate(probs)
+#         trues = np.concatenate(trues)
 
-        metrics = evaluate_model(trues, preds, probs)
-        val_f1 = metrics.get("f1_macro", 0.0)
-        logger.info(f"[Torch MLP] Epoch {ep}/{epochs} val_f1={val_f1:.4f} loss={total_loss/len(train_ds):.4f}")
+#         metrics = evaluate_model(trues, preds, probs)
+#         val_f1 = metrics.get("f1_macro", 0.0)
+#         logger.info(f"[Torch MLP] Epoch {ep}/{epochs} val_f1={val_f1:.4f} loss={total_loss/len(train_ds):.4f}")
 
-        if val_f1 > best_val_f1:
-            best_val_f1 = val_f1
-            best_state = model.state_dict()
+#         if val_f1 > best_val_f1:
+#             best_val_f1 = val_f1
+#             best_state = model.state_dict()
 
-    # load best
-    if best_state is not None:
-        model.load_state_dict(best_state)
+#     # load best
+#     if best_state is not None:
+#         model.load_state_dict(best_state)
 
-    return model, {"val_f1": best_val_f1}
+#     return model, {"val_f1": best_val_f1}
 
 
 # Other models
@@ -358,19 +357,19 @@ def main(args):
         raise CustomException(e, sys)
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=str, required=True, help="Path to train_feature_engineered.csv")
-    parser.add_argument("--out_dir", type=str, default="artifacts", help="Output directory for models & artifacts")
-    parser.add_argument("--label_col", type=str, default="label", help="Name of label column")
-    parser.add_argument("--drop_cols", type=str, default="", help="Comma-separated columns to drop from features")
-    parser.add_argument("--test_size", type=float, default=0.2)
-    parser.add_argument("--random_state", type=int, default=42)
-    parser.add_argument("--augment", nargs="*", default=None, help="Optional augmentation CSV files to append")
-    parser.add_argument("--train_torch", action="store_true", help="Whether to train Torch MLP")
-    parser.add_argument("--torch_epochs", type=int, default=30)
-    parser.add_argument("--torch_batch_size", type=int, default=256)
-    parser.add_argument("--torch_lr", type=float, default=1e-3)
-    parser.add_argument("--device", type=str, default="cpu")
-    args = parser.parse_args()
-    main(args)
+# if __name__ == "__main__":
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument("--input", type=str, required=True, help="Path to train_feature_engineered.csv")
+#     parser.add_argument("--out_dir", type=str, default="artifacts", help="Output directory for models & artifacts")
+#     parser.add_argument("--label_col", type=str, default="label", help="Name of label column")
+#     parser.add_argument("--drop_cols", type=str, default="", help="Comma-separated columns to drop from features")
+#     parser.add_argument("--test_size", type=float, default=0.2)
+#     parser.add_argument("--random_state", type=int, default=42)
+#     parser.add_argument("--augment", nargs="*", default=None, help="Optional augmentation CSV files to append")
+#     parser.add_argument("--train_torch", action="store_true", help="Whether to train Torch MLP")
+#     parser.add_argument("--torch_epochs", type=int, default=30)
+#     parser.add_argument("--torch_batch_size", type=int, default=256)
+#     parser.add_argument("--torch_lr", type=float, default=1e-3)
+#     parser.add_argument("--device", type=str, default="cpu")
+#     args = parser.parse_args()
+#     main(args)

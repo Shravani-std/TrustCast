@@ -1,76 +1,90 @@
 import React from 'react';
-import { ChevronRight } from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react';
 
-const DataTable = ({ rows }) => {
-  if (!rows || rows.length === 0) {
-    return (
-      <div className="text-center py-12 text-gray-500">
-        <p className="text-lg">No data available. Upload a CSV file to see device information.</p>
+const statusStyles = {
+  Healthy: 'bg-emerald-50 text-emerald-600',
+  'Low Trust': 'bg-amber-50 text-amber-600',
+  Anomaly: 'bg-rose-50 text-rose-600'
+};
+
+const DataTable = ({ rows = [] }) => (
+  <div className="rounded-3xl border border-slate-200 bg-white/95 p-6 shadow-[0_15px_40px_rgba(15,23,42,0.07)]">
+    <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Devices</p>
+        <h3 className="text-xl font-semibold text-slate-900">Inventory</h3>
       </div>
-    );
-  }
-
-  return (
+      <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
+        {['Healthy', 'Low Trust', 'Anomaly'].map((filter) => (
+          <button key={filter} className="rounded-full border border-slate-200 px-3 py-1 text-slate-500 hover:border-slate-900 hover:text-slate-900">
+            {filter}
+          </button>
+        ))}
+        <button className="rounded-full border border-slate-200 px-3 py-1 text-slate-600">Export</button>
+      </div>
+    </div>
+    <div className="mb-4 flex flex-wrap gap-3">
+      <input
+        placeholder="Search device ID, tag, owner..."
+        className="w-full rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-600 placeholder:text-slate-400 focus:border-slate-900 md:w-72"
+      />
+      <button className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600">Batch Actions</button>
+    </div>
     <div className="overflow-x-auto">
-      <table className="w-full">
-        <thead>
-          <tr className="border-b-2 border-gray-200">
-            <th className="text-left py-3 px-4 font-bold text-gray-700">Device ID</th>
-            <th className="text-left py-3 px-4 font-bold text-gray-700">Device Name</th>
-            <th className="text-left py-3 px-4 font-bold text-gray-700">Trust Score</th>
-            <th className="text-left py-3 px-4 font-bold text-gray-700">Status</th>
-            <th className="text-left py-3 px-4 font-bold text-gray-700">Last Seen</th>
-            <th className="text-left py-3 px-4 font-bold text-gray-700">Action</th>
+      <table className="w-full text-left text-sm">
+        <thead className="border-b border-slate-100 text-xs uppercase tracking-wide text-slate-500">
+          <tr>
+            <th className="py-3">Device ID</th>
+            <th className="py-3">Status</th>
+            <th className="py-3">Trust Score</th>
+            <th className="py-3">Last Seen</th>
+            <th className="py-3 text-right">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {rows.map((device, idx) => {
-            const score = parseFloat(device.trust_score || 0);
-            let statusColor = 'bg-green-100 text-green-700';
-            let statusText = 'Trusted';
-            
-            if (score < 40) {
-              statusColor = 'bg-red-100 text-red-700';
-              statusText = 'Critical';
-            } else if (score < 70) {
-              statusColor = 'bg-yellow-100 text-yellow-700';
-              statusText = 'Suspicious';
-            }
-
-            return (
-              <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                <td className="py-4 px-4 font-mono text-sm text-gray-600">{device.device_id}</td>
-                <td className="py-4 px-4 font-medium text-gray-900">{device.device_name}</td>
-                <td className="py-4 px-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 bg-gray-200 rounded-full h-2 max-w-[100px]">
-                      <div 
-                        className={`h-2 rounded-full ${score > 70 ? 'bg-green-500' : score > 40 ? 'bg-yellow-500' : 'bg-red-500'}`}
-                        style={{ width: `${score}%` }}
-                      />
-                    </div>
-                    <span className="font-bold text-gray-900 min-w-[40px]">{score}</span>
+          {rows.map((device) => (
+            <tr
+              key={device.device_id}
+              className="border-b border-slate-50 text-slate-700 transition hover:bg-slate-50/60"
+            >
+              <td className="py-3 font-mono text-xs text-slate-500">{device.device_id}</td>
+              <td className="py-3">
+                <span className={`rounded-full px-3 py-1 text-xs font-semibold ${statusStyles[device.status]}`}>
+                  {device.status}
+                </span>
+              </td>
+              <td className="py-3">
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-full max-w-[100px] rounded-full bg-slate-100">
+                    <div
+                      className={`h-2 rounded-full ${
+                        device.status === 'Healthy'
+                          ? 'bg-emerald-500'
+                          : device.status === 'Low Trust'
+                            ? 'bg-amber-400'
+                            : 'bg-rose-500'
+                      }`}
+                      style={{ width: `${device.trust_score}%` }}
+                    />
                   </div>
-                </td>
-                <td className="py-4 px-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-bold ${statusColor}`}>
-                    {statusText}
-                  </span>
-                </td>
-                <td className="py-4 px-4 text-sm text-gray-600">{device.last_seen || 'N/A'}</td>
-                <td className="py-4 px-4">
-                  <button className="text-blue-600 hover:text-blue-800 font-semibold text-sm flex items-center gap-1">
-                    View Details
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+                  <span className="font-semibold text-slate-900">{device.trust_score}%</span>
+                </div>
+              </td>
+              <td className="py-3 text-slate-500">{device.last_seen}</td>
+              <td className="py-3 text-right">
+                <button className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600">
+                  Tag
+                </button>
+                <button className="ml-2 rounded-full border border-slate-200 p-1 text-slate-600">
+                  <MoreHorizontal className="h-4 w-4" />
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
-  );
-};
+  </div>
+);
 
 export default DataTable;
