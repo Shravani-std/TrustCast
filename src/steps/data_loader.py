@@ -44,9 +44,9 @@ class DataLoader:
             logger.erro("Error during gettin data ")
             raise CustomException(e, sys)
         
-# if __name__=="__main__":
-#     file_path = '/media/shrav/New Volume/Mega_Project/TrustCast/data/train_test_network.csv'
-#     obj = DataLoader(file_path)
-#     obj.load_data()
-#     data = obj.get_data()
-#     print(data.head())
+if __name__=="__main__":
+    file_path = '/media/shrav/New Volume/Mega_Project/TrustCast/data/train_test_network.csv'
+    obj = DataLoader(file_path)
+    obj.load_data()
+    data = obj.get_data()
+    print(data.head())

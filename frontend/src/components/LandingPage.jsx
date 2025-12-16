@@ -141,7 +141,7 @@ const LandingPage = ({ onNavigate }) => {
               <span className="text-red-600">Secure Your Network.</span>
             </h1>
             <p className="text-xl text-gray-300 mb-8 leading-relaxed max-w-lg">
-              AI-powered trust scoring for IoT devices. Real-time anomaly detection, ML-driven insights, and enterprise-grade security monitoring.
+              Trust scoring system for evaluating the reliability and security of IoT devices. Real-time anomaly detection, ML-driven insights, and enterprise-grade security monitoring.
             </p>
             <div className="flex gap-4">
               <button

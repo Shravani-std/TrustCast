@@ -100,57 +100,57 @@ class DataSplitter:
             logger.error("Error occured during train/val/test split")
             raise CustomException(e, sys)
 
-# if __name__ == "__main__":
-#     try:
-#         logger.info("===== Data Split Step Started =====")
+if __name__ == "__main__":
+    try:
+        logger.info("===== Data Split Step Started =====")
 
-#         # ==== Absolute Paths (no os.path used) ====
-#         input_file = "/media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_processed.csv"
-#         train_path = "/media/shrav/New Volume/Mega_Project/TrustCast/data/train.csv"
-#         val_path = "/media/shrav/New Volume/Mega_Project/TrustCast/data/val.csv"
-#         test_path = "/media/shrav/New Volume/Mega_Project/TrustCast/data/test.csv"
+        # ==== Absolute Paths (no os.path used) ====
+        input_file = "/media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_processed.csv"
+        train_path = "/media/shrav/New Volume/Mega_Project/TrustCast/data/train.csv"
+        val_path = "/media/shrav/New Volume/Mega_Project/TrustCast/data/val.csv"
+        test_path = "/media/shrav/New Volume/Mega_Project/TrustCast/data/test.csv"
 
-#         # ==== Load dataset (with clean error handling) ====
-#         try:
-#             df = pd.read_csv(input_file)
-#         except FileNotFoundError as e:
-#             logger.error(f"Input dataset not found: {input_file}")
-#             # Wrap and re-raise as CustomException
-#             raise CustomException(e, sys)
+        # ==== Load dataset (with clean error handling) ====
+        try:
+            df = pd.read_csv(input_file)
+        except FileNotFoundError as e:
+            logger.error(f"Input dataset not found: {input_file}")
+            # Wrap and re-raise as CustomException
+            raise CustomException(e, sys)
 
-#         logger.info(
-#             f"Loaded engineered dataset from {input_file} with shape {df.shape}"
-#         )
+        logger.info(
+            f"Loaded engineered dataset from {input_file} with shape {df.shape}"
+        )
 
-#         # ==== Perform split ====
-#         splitter = DataSplitter(
-#             target_col="trust_score",  # change this to your real label if needed
-#             test_ratio=0.30,
-#             val_ratio_in_temp=0.50,
-#             random_state=42,
-#             stratify=False,  # keep False for continuous target like trust_score
-#         )
+        # ==== Perform split ====
+        splitter = DataSplitter(
+            target_col="trust_score",  # change this to your real label if needed
+            test_ratio=0.30,
+            val_ratio_in_temp=0.50,
+            random_state=42,
+            stratify=False,  # keep False for continuous target like trust_score
+        )
 
-#         train_df, val_df, test_df = splitter.split(df)
+        train_df, val_df, test_df = splitter.split(df)
 
-#         # ==== Save outputs ====
-#         train_df.to_csv(train_path, index=False)
-#         val_df.to_csv(val_path, index=False)
-#         test_df.to_csv(test_path, index=False)
+        # ==== Save outputs ====
+        train_df.to_csv(train_path, index=False)
+        val_df.to_csv(val_path, index=False)
+        test_df.to_csv(test_path, index=False)
 
-#         logger.info(
-#             "Saved splits to:\n"
-#             f"  Train: {train_path} ({train_df.shape})\n"
-#             f"  Val:   {val_path} ({val_df.shape})\n"
-#             f"  Test:  {test_path} ({test_df.shape})"
-#         )
+        logger.info(
+            "Saved splits to:\n"
+            f"  Train: {train_path} ({train_df.shape})\n"
+            f"  Val:   {val_path} ({val_df.shape})\n"
+            f"  Test:  {test_path} ({test_df.shape})"
+        )
 
-#         print("Train head:\n", train_df.head())
-#         print("Val head:\n", val_df.head())
-#         print("Test head:\n", test_df.head())
+        print("Train head:\n", train_df.head())
+        print("Val head:\n", val_df.head())
+        print("Test head:\n", test_df.head())
 
-#         logger.info("===== Data Split Step Finished Successfully =====")
+        logger.info("===== Data Split Step Finished Successfully =====")
 
-#     except Exception as e:
-#         logger.error("Data split step failed.")
-#         raise CustomException(e, sys)
+    except Exception as e:
+        logger.error("Data split step failed.")
+        raise CustomException(e, sys)

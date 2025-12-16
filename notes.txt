@@ -35,7 +35,7 @@ git add .
 git commit -m "update"
 git push -u origin main
 
-pill cmds:
+pull cmds:
 git pull origin main
 
 

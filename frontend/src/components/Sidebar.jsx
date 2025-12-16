@@ -6,11 +6,11 @@ import {
   Activity,
   Database,
   CloudUpload,
-  Settings,
+  // Settings,
   BookOpen,
   FileText,
   KeyRound,
-  LogIn
+  // LogIn
 } from 'lucide-react';
 
 const navItems = [
@@ -20,10 +20,10 @@ const navItems = [
   { id: 'dataset', label: 'Dataset Upload', icon: CloudUpload },
   { id: 'model', label: 'Model Monitor', icon: Database },
   { id: 'api', label: 'API Playground', icon: KeyRound },
-  { id: 'settings', label: 'Settings', icon: Settings },
+  // { id: 'settings', label: 'Settings', icon: Settings },
   { id: 'logs', label: 'Logs & Audit', icon: FileText },
   { id: 'help', label: 'Help & Docs', icon: BookOpen },
-  { id: 'login', label: 'Login', icon: LogIn }
+  // { id: 'login', label: 'Login', icon: LogIn }
 ];
 
 const Sidebar = ({ activeView, onSelect }) => (

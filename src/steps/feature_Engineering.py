@@ -8,16 +8,6 @@ from src.logger.logging_handle import logger
 
 
 class FeatureEngineer:
-    """Feature engineering for network dataset, leakage-safe.
-
-    Usage (recommended):
-        fe = FeatureEngineer()
-        df = fe.transform_row_features(df)            # safe for all sets
-        fe.fit_group_features(train_df)               # compute node aggregates on TRAIN only
-        train_df = fe.transform_group_features(train_df)
-        val_df = fe.transform_group_features(val_df)
-        test_df = fe.transform_group_features(test_df)
-    """
 
     def __init__(self):
        
@@ -231,47 +221,47 @@ class FeatureEngineer:
             raise CustomException(e, sys)
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
     
-#     try:
-#         logger.info("Running feature_engineering example script...")
+    try:
+        logger.info("Running feature_engineering example script...")
 
-#         input_file = "/media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_processed.csv"
-#         df = pd.read_csv(input_file)
-#         logger.info(f"Loaded dataset from {input_file} with shape {df.shape}")
+        input_file = "/media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_processed.csv"
+        df = pd.read_csv(input_file)
+        logger.info(f"Loaded dataset from {input_file} with shape {df.shape}")
 
-#         from sklearn.model_selection import train_test_split # type: ignore
-#         train_df, temp = train_test_split(df, test_size=0.3, random_state=42, stratify=None)
-#         val_df, test_df = train_test_split(temp, test_size=0.5, random_state=42)
+        from sklearn.model_selection import train_test_split # type: ignore
+        train_df, temp = train_test_split(df, test_size=0.3, random_state=42, stratify=None)
+        val_df, test_df = train_test_split(temp, test_size=0.5, random_state=42)
 
-#         fe = FeatureEngineer()
+        fe = FeatureEngineer()
 
-#         # row-level features: safe to apply on all sets
-#         train_df = fe.transform_row_features(train_df)
-#         val_df = fe.transform_row_features(val_df)
-#         test_df = fe.transform_row_features(test_df)
+        # row-level features: safe to apply on all sets
+        train_df = fe.transform_row_features(train_df)
+        val_df = fe.transform_row_features(val_df)
+        test_df = fe.transform_row_features(test_df)
 
-#         # compute group-level features on TRAIN ONLY
-#         trust_features = fe.fit_group_features(train_df)
+        # compute group-level features on TRAIN ONLY
+        trust_features = fe.fit_group_features(train_df)
 
-#         # map train group features to all sets (unseen src_ip filled with medians)
-#         train_df = fe.transform_group_features(train_df)
-#         val_df = fe.transform_group_features(val_df)
-#         test_df = fe.transform_group_features(test_df)
+        # map train group features to all sets (unseen src_ip filled with medians)
+        train_df = fe.transform_group_features(train_df)
+        val_df = fe.transform_group_features(val_df)
+        test_df = fe.transform_group_features(test_df)
 
-#         out_train = "/media/shrav/New Volume/Mega_Project/TrustCast/data/train_feature_engineered.csv"
-#         out_val = "/media/shrav/New Volume/Mega_Project/TrustCast/data/val_feature_engineered.csv"
-#         out_test = "/media/shrav/New Volume/Mega_Project/TrustCast/data/test_feature_engineered.csv"
-#         out_summary = "/media/shrav/New Volume/Mega_Project/TrustCast/data/trust_features_summary.csv"
+        out_train = "/media/shrav/New Volume/Mega_Project/TrustCast/data/train_feature_engineered.csv"
+        out_val = "/media/shrav/New Volume/Mega_Project/TrustCast/data/val_feature_engineered.csv"
+        out_test = "/media/shrav/New Volume/Mega_Project/TrustCast/data/test_feature_engineered.csv"
+        out_summary = "/media/shrav/New Volume/Mega_Project/TrustCast/data/trust_features_summary.csv"
 
-#         train_df.to_csv(out_train, index=False)
-#         val_df.to_csv(out_val, index=False)
-#         test_df.to_csv(out_test, index=False)
-#         fe.trust_features_.to_csv(out_summary, index=False)
+        train_df.to_csv(out_train, index=False)
+        val_df.to_csv(out_val, index=False)
+        test_df.to_csv(out_test, index=False)
+        fe.trust_features_.to_csv(out_summary, index=False)
 
-#         logger.info("Feature engineering pipeline completed and files saved.")
-#         print(train_df.head())
+        logger.info("Feature engineering pipeline completed and files saved.")
+        print(train_df.head())
 
-#     except Exception as e:
-#         logger.error("Feature engineering script failed.")
-#         raise CustomException(e, sys)
+    except Exception as e:
+        logger.error("Feature engineering script failed.")
+        raise CustomException(e, sys)

@@ -181,20 +181,16 @@ def _prepare_data_for_cgan(df: pd.DataFrame, feature_cols: Optional[list] = None
     """
     try:
         df = df.copy()
-        # detect label columns
         label_cols = []
         if label_col and label_col in df.columns:
-            # one-hot encode label_col
             labels_df = pd.get_dummies(df[label_col].astype(str), prefix=label_col)
             label_cols = labels_df.columns.tolist()
             df = pd.concat([df.drop(columns=[label_col]), labels_df], axis=1)
         else:
-            # detect existing one-hot columns for 'type_' or 'label_'
             type_cols = [c for c in df.columns if c.startswith("type_") or c.startswith("label_")]
             if len(type_cols) > 0:
                 label_cols = type_cols
             else:
-                # fallback: try a column named 'type' (categorical)
                 if 'type' in df.columns:
                     labels_df = pd.get_dummies(df['type'].astype(str), prefix='type')
                     label_cols = labels_df.columns.tolist()

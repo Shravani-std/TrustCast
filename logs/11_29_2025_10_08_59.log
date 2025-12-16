@@ -1,0 +1,15 @@
+2025-11-29 10:08:59,318 - MLProjectLogger - INFO - Running VAE generation module...
+2025-11-29 10:08:59,747 - MLProjectLogger - INFO - Loaded dataset with shape (147730, 55)
+2025-11-29 10:08:59,774 - MLProjectLogger - INFO - Initializing VAE Model...
+2025-11-29 10:09:00,438 - MLProjectLogger - INFO - VAE Model initialized successfully.
+2025-11-29 10:09:00,438 - MLProjectLogger - INFO - Training VAE for 20 epochs...
+2025-11-29 10:09:02,294 - MLProjectLogger - INFO - Epoch 0 | Loss: nan
+2025-11-29 10:09:03,083 - MLProjectLogger - INFO - Epoch 5 | Loss: nan
+2025-11-29 10:09:03,831 - MLProjectLogger - INFO - Epoch 10 | Loss: nan
+2025-11-29 10:09:04,710 - MLProjectLogger - INFO - Epoch 15 | Loss: nan
+2025-11-29 10:09:05,415 - MLProjectLogger - INFO - VAE training completed successfully.
+2025-11-29 10:09:05,417 - MLProjectLogger - INFO - Generating 5000 synthetic samples using VAE...
+2025-11-29 10:09:05,419 - MLProjectLogger - INFO - Synthetic data generated successfully.
+2025-11-29 10:09:05,475 - MLProjectLogger - INFO - Synthetic VAE data saved at /media/shrav/New Volume/Mega_Project/TrustCast/data/augmentation/synthetic_vae.csv
+2025-11-29 10:09:05,478 - MLProjectLogger - INFO - VAE model saved at /media/shrav/New Volume/Mega_Project/TrustCast/model/vae_model.pth
+2025-11-29 10:09:05,478 - MLProjectLogger - INFO - VAE model saved at /media/shrav/New Volume/Mega_Project/TrustCast/model/vae_model.pth
