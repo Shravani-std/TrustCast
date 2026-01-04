@@ -68,6 +68,9 @@ You can use publicly available cybersecurity datasets such as:
 - Scikit-learn
 - Matplotlib / Seaborn
 - Jupyter Notebook
+- React.js
+- Tailwind
+- Flask
 
 ---
 
@@ -80,3 +83,4 @@ You can use publicly available cybersecurity datasets such as:
 ---
 
 ## 📂 Project Structure
+
