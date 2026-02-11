@@ -1,0 +1,2 @@
+2026-02-10 14:50:21,490 - MLProjectLogger - ERROR - data processing failed.
+2026-02-10 14:50:21,490 - MLProjectLogger - ERROR - Error occurred in python script name [D:\AI\TrustCast\src\steps\data_preprocessing.py] line number [34] error message [DataLoader.__init__() missing 1 required positional argument: 'file_path']

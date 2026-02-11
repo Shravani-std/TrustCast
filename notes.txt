@@ -1,6 +1,57 @@
+Windows cmds:
+1️. Create Conda Environment 
+conda --version
+conda create -n trustcast python=3.12 -y
+conda init
+conda activate trustcast
+pip install -r requirements.txt
+pip install "zenml[server]"
+
+
+2. Local Zenml setup:
+zenml login --local --blocking
+zenml init
+zenml status
+
+3. Install MLflow integration
+zenml integration install mlflow -y
+pip install "zenml[mlflow]"
+
+
+Register MLflow experiment tracker
+zenml experiment-tracker register trustcast_tracker --flavor=mlflow
+zenml experiment-tracker list
+
+
+7️⃣ Create and Activate Stack (✔ correct)
+
+zenml stack register trustcast_stack \
+  -a default \
+  -o default \
+  -e trustcast_tracker
+zenml stack set trustcast_stack
+zenml stack describe
+zenml login --local --blocking
+
+
+
+Backend
+conda activate trustcast
+
+frontend
+cd frontend
+npm install
+npm run dev
+
+
+
+
+
+Ubuntu cmds:
 1. Create Environment
         conda --version
         conda create --name trustcast python=3.12
+        conda init
         conda activate trustcast
 2. Install required libraries
         pip install -r requirements.txt
@@ -27,7 +78,8 @@ To run cmds:
 1. conda activate trustcast
 2. zenml up
 3. cd frontend
-4. npm run dev
+4. npm install
+5. npm run dev
 
 
 push new code in github:

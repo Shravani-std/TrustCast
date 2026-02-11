@@ -1,0 +1,2 @@
+2026-02-10 14:59:09,165 - MLProjectLogger - ERROR - data processing failed.
+2026-02-10 14:59:09,165 - MLProjectLogger - ERROR - Error occurred in python script name [D:\AI\TrustCast\src\steps\data_loader.py] line number [17] error message [DataLoader.load_data() takes 1 positional argument but 2 were given]

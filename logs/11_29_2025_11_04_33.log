@@ -1,3 +1,0 @@
-2025-11-29 11:04:33,557 - MLProjectLogger - INFO - Data Loaded sucessfully file path: /media/shrav/New Volume/Mega_Project/TrustCast/data/train_test_network.csv
-2025-11-29 11:04:33,557 - MLProjectLogger - INFO - 'load_data' executed in 0.3085s
-2025-11-29 11:04:33,557 - MLProjectLogger - INFO - Get data from data loader

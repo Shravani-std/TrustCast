@@ -1,5 +1,0 @@
-2025-11-28 23:21:27,456 - MLProjectLogger - INFO - ===== Data Split Step Started =====
-2025-11-28 23:21:27,456 - MLProjectLogger - ERROR - Input dataset not found: /media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_preprocessed.csv
-2025-11-28 23:21:27,456 - MLProjectLogger - ERROR - Error occurred in python script name [/home/shrav/miniconda3/envs/trustcast/lib/python3.11/site-packages/pandas/io/common.py] line number [873] error message [[Errno 2] No such file or directory: '/media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_preprocessed.csv']
-2025-11-28 23:21:27,456 - MLProjectLogger - ERROR - Data split step failed.
-2025-11-28 23:21:27,456 - MLProjectLogger - ERROR - Error occurred in python script name [/media/shrav/New Volume/Mega_Project/TrustCast/src/steps/data_split.py] line number [119] error message [Error occurred in python script name [/home/shrav/miniconda3/envs/trustcast/lib/python3.11/site-packages/pandas/io/common.py] line number [873] error message [[Errno 2] No such file or directory: '/media/shrav/New Volume/Mega_Project/TrustCast/data/dataset_preprocessed.csv']]

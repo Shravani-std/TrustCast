@@ -1,2 +1,0 @@
-2025-10-13 21:59:16,005 - MLProjectLogger - INFO - Divided by zero
-2025-10-13 21:59:16,005 - MLProjectLogger - ERROR - Error occurred in python script name [/media/shrav/New Volume/Mega_Project/TrustCast/src/exception/exception_handle.py] line number [39] error message [division by zero]

@@ -1,3 +1,0 @@
-2025-11-29 10:06:01,773 - MLProjectLogger - INFO - Starting ETL process for network dataset...
-2025-11-29 10:06:01,774 - MLProjectLogger - ERROR - ETL process failed.
-2025-11-29 10:06:01,774 - MLProjectLogger - ERROR - Error occurred in python script name [/home/shrav/miniconda3/envs/trustcast/lib/python3.11/site-packages/pandas/io/common.py] line number [873] error message [[Errno 2] No such file or directory: '/media/shrav/New Volume1/Mega_Project/TrustCast/data/train_test_network.csv']

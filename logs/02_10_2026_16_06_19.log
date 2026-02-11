@@ -1,0 +1,11 @@
+2026-02-10 16:06:21,333 - MLProjectLogger - INFO - Data Loaded sucessfully file path: D:\AI\TrustCast\data\UNSW_1.csv
+2026-02-10 16:06:21,333 - MLProjectLogger - INFO - 'load_data' executed in 1.9690s
+2026-02-10 16:06:21,334 - MLProjectLogger - INFO - Column Names : ['srcip', 'sport', 'dstip', 'dsport', 'proto', 'state', 'dur', 'sbytes', 'dbytes', 'sttl', 'dttl', 'sloss', 'dloss', 'service', 'Sload', 'Dload', 'Spkts', 'Dpkts', 'swin', 'dwin', 'stcpb', 'dtcpb', 'smeansz', 'dmeansz', 'trans_depth', 'res_bdy_len', 'Sjit', 'Djit', 'Stime', 'Ltime', 'Sintpkt', 'Dintpkt', 'tcprtt', 'synack', 'ackdat', 'is_sm_ips_ports', 'ct_state_ttl', 'ct_flw_http_mthd', 'is_ftp_login', 'ct_ftp_cmd', 'ct_srv_src', 'ct_srv_dst', 'ct_dst_ltm', 'ct_src_ ltm', 'ct_src_dport_ltm', 'ct_dst_sport_ltm', 'ct_dst_src_ltm', 'attack_cat', 'Label']
+2026-02-10 16:06:22,335 - MLProjectLogger - INFO - Missing values calculated
+2026-02-10 16:06:22,492 - MLProjectLogger - INFO - Missing values calculated
+2026-02-10 16:06:22,535 - MLProjectLogger - INFO - Missing values handled successfully
+2026-02-10 16:06:23,243 - MLProjectLogger - INFO - Adding unknown_service instead of '-' 
+2026-02-10 16:06:23,289 - MLProjectLogger - ERROR - Error in categorical encoding
+2026-02-10 16:06:23,291 - MLProjectLogger - ERROR - Error occurred in python script name [C:\Users\DELL\anaconda3\envs\trustcast\Lib\site-packages\pandas\core\indexes\base.py] line number [6264] error message ["['sport_bucket', 'dsport_bucket'] not in index"]
+2026-02-10 16:06:23,291 - MLProjectLogger - ERROR - data processing failed.
+2026-02-10 16:06:23,292 - MLProjectLogger - ERROR - Error occurred in python script name [D:\AI\TrustCast\src\steps\data_preprocessing.py] line number [168] error message [Error occurred in python script name [C:\Users\DELL\anaconda3\envs\trustcast\Lib\site-packages\pandas\core\indexes\base.py] line number [6264] error message ["['sport_bucket', 'dsport_bucket'] not in index"]]
