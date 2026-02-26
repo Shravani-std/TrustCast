@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, Hash, FileBadge, Loader2 } from 'lucide-react';
-
+import { ThemeProvider } from './ThemeContext';
 const FileUpload = ({ setData }) => {
   const [fileMeta, setFileMeta] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);

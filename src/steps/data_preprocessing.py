@@ -10,9 +10,10 @@ from src.logger.logging_handle import logger
 class DataPreprocessing:
     def __init__(self):
         self.ohe = OneHotEncoder(
-            sparse_output=False,
-            handle_unknown='ignore'
+        handle_unknown="ignore",
+        sparse_output=False   
         )
+
     
     # Utility: Port Conversion
     @staticmethod
@@ -75,18 +76,27 @@ class DataPreprocessing:
 
         # Step 4: Feature Engineering + Encoding
 
-    def encode_categorical(self, df:pd.DataFrame)->pd.DataFrame:
+    def encode_categorical(self, df: pd.DataFrame) -> pd.DataFrame:
         try:
             logger.info("Starting categorical feature engineering...")
 
-            # service Binary
+            # --- clean column names ---
+            df.columns = df.columns.str.strip()
+
+            # =========================
+            # Service binary flag
+            # =========================
+            df["service"] = df["service"].fillna("-").astype(str)
+
             df["is_service_unknown"] = (
-                df["service"].isin(["unknown_service"])
+                df["service"].isin(["unknown_service", "-", "unknown"])
             ).astype(int)
 
-            # port bucketing
+            # =========================
+            # Port bucketing
+            # =========================
             def bucket(port):
-                if port == -1:
+                if pd.isna(port) or port == -1:
                     return "unknown"
                 elif port <= 1023:
                     return "well_known"
@@ -94,55 +104,78 @@ class DataPreprocessing:
                     return "registered"
                 else:
                     return "dynamic"
-                
+
             df["sport_bucket"] = df["sport"].apply(bucket)
             df["dsport_bucket"] = df["dsport"].apply(bucket)
 
-
+            # =========================
+            # Small categorical encoding
+            # =========================
             small_cat_features = [
                 "state",
                 "sport_bucket",
                 "dsport_bucket",
-                "service"
+                "service",
             ]
 
-            existing_cols =[c for c in small_cat_features if c in df.columns]
+            existing_cols = [c for c in small_cat_features if c in df.columns]
+            logger.info(f"OHE columns: {existing_cols}")
+
+            # 🔥 CRITICAL SAFETY
+            df[existing_cols] = df[existing_cols].fillna("Unknown").astype(str)
+
+            # --- ensure encoder is dense ---
             encoded = self.ohe.fit_transform(df[existing_cols])
+
+            # --- shape check ---
+            assert encoded.shape[0] == df.shape[0], \
+                "Row mismatch between df and encoded output"
 
             encoded_df = pd.DataFrame(
                 encoded,
                 columns=self.ohe.get_feature_names_out(existing_cols),
-                index=df.index
+                index=df.index,
             )
 
-#dropeed unwanted cols which are already encoded
+            # ✅ CORRECT CONCAT (axis=1 important)
+            cols_to_drop = [col for col in existing_cols if col != "state"]
+
             df = pd.concat(
-                [df.drop(columns=existing_cols), encoded_df]
+                [df.drop(columns=cols_to_drop, errors="ignore"), encoded_df],
+                axis=1
             )
-
-             # Protocol grouping
+           
+            # =========================
+            # Protocol grouping
+            # =========================
             df["proto_group"] = df["proto"].apply(
                 lambda p: p if p in ("tcp", "udp", "icmp") else "other"
             )
+
             proto_domain = pd.get_dummies(
                 df["proto_group"],
-
                 prefix="proto",
-                dtype=int
+                dtype=int,
             )
+
             df = pd.concat([df, proto_domain], axis=1)
+
             df["is_tcp"] = (df["proto"] == "tcp").astype(int)
             df["is_udp"] = (df["proto"] == "udp").astype(int)
             df["is_icmp"] = (df["proto"] == "icmp").astype(int)
+
             df["is_other_proto"] = (
                 (df["is_tcp"] + df["is_udp"] + df["is_icmp"]) == 0
             ).astype(int)
+
             df = df.drop(columns=["proto", "proto_group", "attack_cat"], errors="ignore")
+
             logger.info("Categorical feature engineering completed.")
             return df
+
         except Exception as e:
-            logger.error(" Error in encode_categorical() " )
-            raise CustomException(e,sys)
+            logger.error("Error in encode_categorical()")
+            raise CustomException(e, sys)
 
     # Step 5: IP Encoding
     def encode_ip(self, df:pd.DataFrame) -> pd.DataFrame:
@@ -189,7 +222,7 @@ class DataPreprocessing:
                     logger.warning("dstip format invalid. Skipping dstip encoding.")
 
             # Drop original IP columns
-            df.drop(columns=["srcip", "dstip"], errors="ignore", inplace=True)
+            df.drop(columns=["dstip"], errors="ignore", inplace=True)
 
             logger.info("IP categorical encoding completed successfully.")
             return df
@@ -223,6 +256,7 @@ if __name__ == "__main__":
     try:
         logger.info("Starting ETL process for TrustCast dataset...")
 
+        # file_path = "D:\\AI\\TrustCast\\data\\UNSW_data.csv"
         file_path = "D:\\AI\\TrustCast\\data\\UNSW_1.csv"
         df = pd.read_csv(file_path)
         logger.info(f"Dataset loaded successfully with shape {df.shape}")
@@ -232,7 +266,8 @@ if __name__ == "__main__":
 
         logger.info(f"Processed dataset shape: {df_processed.shape}")
 
-        output_path = "D:\\AI\\TrustCast\\data\\UNSW_combined_processed.csv"
+        # output_path = "D:\\AI\\TrustCast\\data\\UNSW_combined_processed.csv"
+        output_path = "D:\\AI\\TrustCast\\data\\UNSW_processed_new.csv"
         df_processed.to_csv(output_path, index=False)
 
         logger.info(f"Processed dataset saved at {output_path}")

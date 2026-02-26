@@ -1,0 +1,11 @@
+2026-02-12 22:23:00,886 - MLProjectLogger - INFO - ===== Data Split Step Started =====
+2026-02-12 22:23:08,362 - MLProjectLogger - INFO - Loaded dataset from D:\AI\TrustCast\data\UNSW_feature_eng_clean.csv with shape (1400000, 111)
+2026-02-12 22:23:08,362 - MLProjectLogger - INFO - Starting train/validation/test split...
+2026-02-12 22:23:08,554 - MLProjectLogger - INFO - Dropped rows with NaN in target 'Label'. Before: (1400000, 111), After: (700000, 111)
+2026-02-12 22:23:09,978 - MLProjectLogger - INFO - Balancing imbalanced dataset...
+2026-02-12 22:23:10,214 - MLProjectLogger - INFO - Balanced dataset shape: (31100, 111)
+2026-02-12 22:23:19,225 - MLProjectLogger - INFO - Saved splits successfully:
+  Train: D:\AI\TrustCast\data\train.csv
+  Val:   D:\AI\TrustCast\data\val.csv
+  Test:  D:\AI\TrustCast\data\test.csv
+2026-02-12 22:23:19,363 - MLProjectLogger - INFO - ===== Data Split Step Finished Successfully =====

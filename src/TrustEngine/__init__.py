@@ -1,5 +1,5 @@
 import sys
-from src.logger.logger_handle import logging
+from src.logger.logging_handle import logger
 
 
 

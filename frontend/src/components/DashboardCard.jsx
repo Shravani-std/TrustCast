@@ -1,8 +1,7 @@
 import React from 'react';
 import { Zap, Lock, Database } from 'lucide-react';
-
 const DashboardCard = ({ title, description }) => {
-  return (  
+  return ( 
     <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
       <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
       <p className="text-gray-700 text-lg leading-relaxed mb-6">{description}</p>
@@ -36,6 +35,7 @@ const DashboardCard = ({ title, description }) => {
         </div>
       </div>
     </div>
+   
   );
 };
 

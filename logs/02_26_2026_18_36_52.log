@@ -1,0 +1,16 @@
+2026-02-26 18:37:02,290 - MLProjectLogger - INFO - =========== TRUSTCAST PIPELINE STARTED ===========
+2026-02-26 18:37:06,394 - MLProjectLogger - INFO - Dataset loaded successfully: (700000, 49)
+2026-02-26 18:37:06,394 - MLProjectLogger - INFO - Starting preprocessing...
+2026-02-26 18:37:09,462 - MLProjectLogger - INFO - Preprocessing completed.
+2026-02-26 18:37:09,639 - MLProjectLogger - INFO - Applying feature engineering...
+2026-02-26 18:37:09,714 - MLProjectLogger - INFO - Feature engineering done.
+2026-02-26 18:37:13,448 - MLProjectLogger - INFO - Time-based split completed.
+2026-02-26 18:37:13,627 - MLProjectLogger - INFO - Applying Trust Engine...
+2026-02-26 18:37:13,680 - MLProjectLogger - INFO - Trust scoring completed.
+2026-02-26 18:37:13,680 - MLProjectLogger - INFO - Applying Trust Engine...
+2026-02-26 18:37:13,700 - MLProjectLogger - INFO - Trust scoring completed.
+2026-02-26 18:37:13,701 - MLProjectLogger - INFO - Applying Trust Engine...
+2026-02-26 18:37:13,711 - MLProjectLogger - INFO - Trust scoring completed.
+2026-02-26 21:43:12,175 - MLProjectLogger - ERROR - Pipeline failed.
+2026-02-26 21:43:12,176 - MLProjectLogger - ERROR - Error occurred in python script name [C:\Users\DELL\anaconda3\envs\trustcast\Lib\site-packages\sklearn\metrics\_ranking.py] line number [382] error message [Only one class present in y_true. ROC AUC score is not defined in that case.]
+2026-02-26 21:43:12,176 - MLProjectLogger - ERROR - Error occurred in python script name [D:\AI\TrustCast\pipelines\main_pipe.py] line number [98] error message [Error occurred in python script name [C:\Users\DELL\anaconda3\envs\trustcast\Lib\site-packages\sklearn\metrics\_ranking.py] line number [382] error message [Only one class present in y_true. ROC AUC score is not defined in that case.]]

@@ -1,0 +1,8 @@
+2026-02-13 22:04:19,455 - MLProjectLogger - INFO - ===== Model Training Started =====
+2026-02-13 22:04:28,071 - MLProjectLogger - INFO - Starting Trust Engine (Robust Mode)...
+2026-02-13 22:04:28,832 - MLProjectLogger - INFO - Trust Engine completed successfully.
+2026-02-13 22:04:28,832 - MLProjectLogger - INFO - Starting Trust Engine (Robust Mode)...
+2026-02-13 22:04:29,013 - MLProjectLogger - INFO - Trust Engine completed successfully.
+2026-02-13 22:05:09,218 - MLProjectLogger - INFO - RandomForest Results: {'Accuracy': 0.9992714285714286, 'Precision': np.float64(0.9757557617479796), 'Recall': np.float64(0.978391356542617), 'F1': np.float64(0.977071781807283), 'ROC_AUC': np.float64(0.999967155219066)}
+2026-02-13 22:05:26,660 - MLProjectLogger - INFO - XGBoost Results: {'Accuracy': 0.9983380952380952, 'Precision': np.float64(0.9058503401360545), 'Recall': np.float64(0.9990996398559424), 'F1': np.float64(0.9501926644783788), 'ROC_AUC': np.float64(0.9999614401473131)}
+2026-02-13 22:05:26,678 - MLProjectLogger - INFO - ===== Model Training Completed Successfully =====

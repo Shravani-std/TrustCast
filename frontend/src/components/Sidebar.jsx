@@ -4,7 +4,8 @@ import {
   LayoutDashboard,
   Cpu,
   Activity,
-  Database,
+  // Database,
+
   CloudUpload,
   // Settings,
   BookOpen,
@@ -18,7 +19,7 @@ const navItems = [
   { id: 'devices', label: 'Devices', icon: Activity },
   { id: 'device-details', label: 'Device Details', icon: Cpu },
   { id: 'dataset', label: 'Dataset Upload', icon: CloudUpload },
-  { id: 'model', label: 'Model Monitor', icon: Database },
+  // { id: 'model', label: 'Model Monitor', icon: Database },
   { id: 'api', label: 'API Playground', icon: KeyRound },
   // { id: 'settings', label: 'Settings', icon: Settings },
   { id: 'logs', label: 'Logs & Audit', icon: FileText },
@@ -59,11 +60,11 @@ const Sidebar = ({ activeView, onSelect }) => (
       })}
     </nav>
 
-    <div className="mt-auto rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
+    {/* <div className="mt-auto rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Countdown</p>
       <p className="mt-2 text-sm text-slate-600">Next model retrain:</p>
       <p className="text-lg font-semibold text-slate-900">2 days • 10h • 23m</p>
-    </div>
+    </div> */}
   </aside>
 );
 
