@@ -1,7 +1,0 @@
-2026-02-12 22:19:31,903 - MLProjectLogger - INFO - ===== Data Split Step Started =====
-2026-02-12 22:19:39,082 - MLProjectLogger - INFO - Loaded dataset from D:\AI\TrustCast\data\UNSW_feature_eng_clean.csv with shape (1400000, 111)
-2026-02-12 22:19:39,082 - MLProjectLogger - INFO - Starting train/validation/test split...
-2026-02-12 22:19:39,332 - MLProjectLogger - ERROR - Error during train/val/test split.
-2026-02-12 22:19:39,332 - MLProjectLogger - ERROR - Error occurred in python script name [C:\Users\DELL\anaconda3\envs\trustcast\Lib\site-packages\sklearn\utils\validation.py] line number [172] error message [Input y contains NaN.]
-2026-02-12 22:19:39,348 - MLProjectLogger - ERROR - Data split step failed.
-2026-02-12 22:19:39,348 - MLProjectLogger - ERROR - Error occurred in python script name [D:\AI\TrustCast\src\steps\data_split.py] line number [141] error message [Error occurred in python script name [C:\Users\DELL\anaconda3\envs\trustcast\Lib\site-packages\sklearn\utils\validation.py] line number [172] error message [Input y contains NaN.]]

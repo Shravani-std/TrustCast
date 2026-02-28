@@ -1,4 +1,0 @@
-2026-02-13 21:29:05,014 - MLProjectLogger - INFO - Starting Feature Engineering module...
-2026-02-13 21:29:17,867 - MLProjectLogger - INFO - Dataset loaded successfully with shape (1400000, 89)
-2026-02-13 21:29:17,867 - MLProjectLogger - ERROR - Feature engineering process failed.
-2026-02-13 21:29:17,867 - MLProjectLogger - ERROR - Error occurred in python script name [D:\AI\TrustCast\src\steps\feature_Engineering.py] line number [164] error message ['FeatureEngineering' object has no attribute 'apply_all']

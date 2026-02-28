@@ -26,41 +26,37 @@ class TrustCastPipeline:
         try:
             logger.info("=========== TRUSTCAST PIPELINE STARTED ===========")
 
-            # --------------------------------------------------
-            # 1️⃣ Data Loading
-            # --------------------------------------------------
+            # 1. Data Loading
             loader = DataLoader(self.raw_data_path)
             df = loader.load()
 
-            # --------------------------------------------------
-            # 2️⃣ Preprocessing
-            # --------------------------------------------------
+            # 2. Preprocessing
             preprocessor = DataPreprocessing()
             df = preprocessor.preprocess(df)
 
-            # --------------------------------------------------
+            
             # 3️⃣ Feature Engineering
-            # --------------------------------------------------
+            
             fe = FeatureEngineering()
             df = fe.apply(df)
 
-            # --------------------------------------------------
+            
             # 4️⃣ Time-based Split
-            # --------------------------------------------------
+            
             splitter = DataSplitter()
             train_df, val_df, test_df = splitter.split(df)
 
-            # --------------------------------------------------
+            
             # 5️⃣ Trust Engine
-            # --------------------------------------------------
+            
             trust_engine = TrustEngine()
             train_df = trust_engine.apply(train_df)
             val_df = trust_engine.apply(val_df)
             test_df = trust_engine.apply(test_df)
 
-            # --------------------------------------------------
+            
             # 6️⃣ Model Building
-            # --------------------------------------------------
+            
             trainer = ModelTrainer()
             builder = ModelBuilder()
 
@@ -70,19 +66,19 @@ class TrustCastPipeline:
 
             # model = builder.build(window_size, feature_dim)
 
-            # --------------------------------------------------
+            
             # 7️⃣ Model Training
-            # --------------------------------------------------
+            
             model, scaler = trainer.train(builder, train_df, val_df)
             # --------------------------------------------------
             # 8️⃣ Evaluation
-            # --------------------------------------------------
+            
             evaluator = ModelEvaluator()
             evaluator.evaluate(model, scaler, test_df)
 
-            # --------------------------------------------------
+            
             # 9️⃣ Save Model & Scaler
-            # --------------------------------------------------
+            
             save_dir = "D:\\AI\\TrustCast\\models"
             os.makedirs(save_dir, exist_ok=True)
 

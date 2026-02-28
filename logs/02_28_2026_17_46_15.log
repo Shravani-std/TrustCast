@@ -1,0 +1,34 @@
+2026-02-28 17:46:48,709 | INFO | Prediction request received
+2026-02-28 17:46:49,033 | INFO | CSV loaded successfully. Shape: (40043, 49)
+2026-02-28 17:46:49,033 | INFO | Starting preprocessing
+2026-02-28 17:46:49,033 | INFO | Starting preprocessing...
+2026-02-28 17:46:49,170 | INFO | Preprocessing completed.
+2026-02-28 17:46:49,172 | INFO | Applying feature engineering
+2026-02-28 17:46:49,172 | INFO | Applying feature engineering...
+2026-02-28 17:46:49,193 | INFO | Feature engineering done.
+2026-02-28 17:46:49,193 | INFO | Applying trust engine transformation
+2026-02-28 17:46:49,193 | INFO | Applying Trust Engine...
+2026-02-28 17:46:49,203 | INFO | Trust scoring completed.
+2026-02-28 17:46:49,207 | INFO | Dropping Label column
+2026-02-28 17:46:49,332 | INFO | Numeric feature count: 112
+2026-02-28 17:46:49,589 | INFO | Scaling completed
+2026-02-28 17:46:50,044 | INFO | Sequences created: 40023
+2026-02-28 17:46:50,044 | INFO | Running model prediction
+2026-02-28 17:47:02,159 | INFO | Prediction completed successfully
+2026-02-28 17:49:52,537 | INFO | Prediction request received
+2026-02-28 17:49:52,861 | INFO | CSV loaded successfully. Shape: (40043, 49)
+2026-02-28 17:49:52,861 | INFO | Starting preprocessing
+2026-02-28 17:49:52,862 | INFO | Starting preprocessing...
+2026-02-28 17:49:52,982 | INFO | Preprocessing completed.
+2026-02-28 17:49:52,997 | INFO | Applying feature engineering
+2026-02-28 17:49:52,997 | INFO | Applying feature engineering...
+2026-02-28 17:49:53,047 | INFO | Feature engineering done.
+2026-02-28 17:49:53,047 | INFO | Applying trust engine transformation
+2026-02-28 17:49:53,051 | INFO | Applying Trust Engine...
+2026-02-28 17:49:53,060 | INFO | Trust scoring completed.
+2026-02-28 17:49:53,060 | INFO | Dropping Label column
+2026-02-28 17:49:53,140 | INFO | Numeric feature count: 112
+2026-02-28 17:49:53,392 | INFO | Scaling completed
+2026-02-28 17:49:53,812 | INFO | Sequences created: 40023
+2026-02-28 17:49:53,812 | INFO | Running model prediction
+2026-02-28 17:50:05,564 | INFO | Prediction completed successfully

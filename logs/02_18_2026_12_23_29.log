@@ -1,4 +1,0 @@
-2026-02-18 12:23:29,443 - MLProjectLogger - INFO - Starting ETL process for TrustCast dataset...
-2026-02-18 12:23:31,959 - MLProjectLogger - INFO - Dataset loaded successfully with shape (700000, 49)
-2026-02-18 12:23:31,959 - MLProjectLogger - ERROR - ETL process failed.
-2026-02-18 12:23:31,959 - MLProjectLogger - ERROR - Error occurred in python script name [D:\AI\TrustCast\src\steps\data_preprocessing.py] line number [263] error message ['DataPreprocessing' object has no attribute 'preprocess']

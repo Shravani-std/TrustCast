@@ -1,7 +1,0 @@
-2026-02-10 15:44:31,125 - MLProjectLogger - INFO - Data Loaded sucessfully file path: D:\AI\TrustCast\data\UNSW_1.csv
-2026-02-10 15:44:31,125 - MLProjectLogger - INFO - 'load_data' executed in 1.9148s
-2026-02-10 15:44:31,125 - MLProjectLogger - INFO - Column Names : ['srcip', 'sport', 'dstip', 'dsport', 'proto', 'state', 'dur', 'sbytes', 'dbytes', 'sttl', 'dttl', 'sloss', 'dloss', 'service', 'Sload', 'Dload', 'Spkts', 'Dpkts', 'swin', 'dwin', 'stcpb', 'dtcpb', 'smeansz', 'dmeansz', 'trans_depth', 'res_bdy_len', 'Sjit', 'Djit', 'Stime', 'Ltime', 'Sintpkt', 'Dintpkt', 'tcprtt', 'synack', 'ackdat', 'is_sm_ips_ports', 'ct_state_ttl', 'ct_flw_http_mthd', 'is_ftp_login', 'ct_ftp_cmd', 'ct_srv_src', 'ct_srv_dst', 'ct_dst_ltm', 'ct_src_ ltm', 'ct_src_dport_ltm', 'ct_dst_sport_ltm', 'ct_dst_src_ltm', 'attack_cat', 'Label']
-2026-02-10 15:44:31,915 - MLProjectLogger - INFO - Missing values calculated
-2026-02-10 15:44:32,066 - MLProjectLogger - INFO - Missing values calculated
-2026-02-10 15:44:32,109 - MLProjectLogger - INFO - Missing values handled successfully
-2026-02-10 15:44:32,842 - MLProjectLogger - INFO - Adding unknown_service instead of '-' 

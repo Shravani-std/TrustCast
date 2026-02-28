@@ -1,4 +1,0 @@
-2026-02-11 23:24:09,708 - MLProjectLogger - INFO - All Datasets Loaded sucessfully file path: ['D:\\AI\\TrustCast\\data\\UNSW_1.csv', 'D:\\AI\\TrustCast\\data\\UNSW_2.csv', 'D:\\AI\\TrustCast\\data\\UNSW_3.csv']
-2026-02-11 23:24:09,708 - MLProjectLogger - INFO - 'load_data' executed in 6.6649s
-2026-02-11 23:24:29,955 - MLProjectLogger - INFO - Combined dataset saved successfully 
-2026-02-11 23:24:29,955 - MLProjectLogger - INFO - Get data from data loader

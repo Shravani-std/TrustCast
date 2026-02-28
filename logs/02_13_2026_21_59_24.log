@@ -1,9 +1,0 @@
-2026-02-13 21:59:24,780 - MLProjectLogger - INFO - ===== Data Split Step Started =====
-2026-02-13 21:59:32,900 - MLProjectLogger - INFO - Loaded dataset with shape (1400000, 113)
-2026-02-13 21:59:32,902 - MLProjectLogger - INFO - Starting train/validation/test split...
-2026-02-13 21:59:32,917 - MLProjectLogger - INFO - Replaced 700000 NaN values in target with 0.
-2026-02-13 21:59:36,710 - MLProjectLogger - INFO - Split complete - Train: (980000, 113), Val: (210000, 113), Test: (210000, 113)
-2026-02-13 22:00:29,768 - MLProjectLogger - INFO - Train shape: (980000, 113)
-Val shape: (210000, 113)
-Test shape: (210000, 113)
-2026-02-13 22:00:29,770 - MLProjectLogger - INFO - ===== Data Split Step Finished Successfully =====

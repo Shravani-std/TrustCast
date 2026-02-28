@@ -45,3 +45,6 @@ class ModelBuilder:
         )
 
         return model
+    def get_config(self):
+        config = super().get_config()
+        return config

@@ -1,7 +1,7 @@
-import numpy as np
-from sklearn.preprocessing import StandardScaler
-import tensorflow as tf
-import joblib
+import numpy as np #type:ignore
+from sklearn.preprocessing import StandardScaler #type:ignore
+import tensorflow as tf #type:ignore
+import joblib #type:ignore
 import os
 
 
@@ -82,7 +82,7 @@ class ModelTrainer:
         model.fit(
             train_gen,
             validation_data=val_gen,
-            epochs=30
+            epochs=2
         )
 
         return model, scaler

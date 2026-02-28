@@ -1,8 +1,0 @@
-2026-02-12 23:39:52,830 - MLProjectLogger - INFO - ===== Data Split Step Started =====
-2026-02-12 23:40:11,773 - MLProjectLogger - INFO - Loaded dataset with shape (1400000, 111)
-2026-02-12 23:40:11,773 - MLProjectLogger - INFO - Starting train/validation/test split...
-2026-02-12 23:40:11,897 - MLProjectLogger - INFO - Replaced 700000 NaN values in target with 0.
-2026-02-12 23:40:16,781 - MLProjectLogger - ERROR - Error during train/val/test split.
-2026-02-12 23:40:16,781 - MLProjectLogger - ERROR - Error occurred in python script name [C:\Users\DELL\anaconda3\envs\trustcast\Lib\site-packages\pandas\core\array_algos\take.py] line number [157] error message [Unable to allocate 389. MiB for an array with shape (52, 980000) and data type float64]
-2026-02-12 23:40:27,665 - MLProjectLogger - ERROR - Data split step failed.
-2026-02-12 23:40:27,668 - MLProjectLogger - ERROR - Error occurred in python script name [D:\AI\TrustCast\src\steps\data_split.py] line number [96] error message [Error occurred in python script name [C:\Users\DELL\anaconda3\envs\trustcast\Lib\site-packages\pandas\core\array_algos\take.py] line number [157] error message [Unable to allocate 389. MiB for an array with shape (52, 980000) and data type float64]]

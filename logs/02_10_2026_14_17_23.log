@@ -1,3 +1,0 @@
-2026-02-10 14:17:26,349 - MLProjectLogger - INFO - Data Loaded sucessfully file path: D:\AI\TrustCast\data\UNSW_1.csv
-2026-02-10 14:17:26,351 - MLProjectLogger - INFO - 'load_data' executed in 2.6607s
-2026-02-10 14:17:26,351 - MLProjectLogger - INFO - Get data from data loader
