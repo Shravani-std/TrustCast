@@ -6,12 +6,11 @@ import os
 from fastapi import FastAPI, UploadFile, File #type:ignore
 from fastapi.middleware.cors import CORSMiddleware #type:ignore
 from fastapi.responses import JSONResponse #type:ignore
-
-from src.TrustEngine.data_preprocessing import DataPreprocessing
+from src.TrustEngine.feature_eng import FeatureEngineering
 from src.TrustEngine.feature_eng import FeatureEngineering
 from src.TrustEngine.trust_engine import TrustEngine
 from src.TrustEngine.model_building import AttentionLayer
-
+from src.TrustEngine.data_preprocessing import DataPreprocessing
 
 app = FastAPI()
 
@@ -55,31 +54,26 @@ def create_sequences(X, window=20):
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
+    global uploaded_df
 
     try:
         logger.info("Prediction request received")
 
-        df = pd.read_csv(file.file)
-        logger.info(f"CSV loaded successfully. Shape: {df.shape}")
+        uploaded_df = pd.read_csv(file.file)
+        logger.info(f"CSV loaded successfully. Shape: {uploaded_df.shape}")
+
+        df = uploaded_df.copy()
 
         # Preprocessing
-        logger.info("Starting preprocessing")
         df = preprocessor.preprocess(df)
-
-        logger.info("Applying feature engineering")
         df = feature_engineer.apply(df)
-
-        logger.info("Applying trust engine transformation")
         df = trust_engine.apply(df)
 
         if "Label" in df.columns:
-            logger.info("Dropping Label column")
             df = df.drop("Label", axis=1)
 
         df = df.select_dtypes(include=["number"])
-        logger.info(f"Numeric feature count: {df.shape[1]}")
 
-        # Feature alignment
         for col in feature_columns:
             if col not in df.columns:
                 df[col] = 0
@@ -87,20 +81,15 @@ async def predict(file: UploadFile = File(...)):
         df = df[feature_columns]
 
         X = scaler.transform(df).astype(np.float32)
-        logger.info("Scaling completed")
 
         if len(X) <= WINDOW:
-            logger.warning("Not enough rows to create sequences")
             return JSONResponse(
                 status_code=400,
                 content={"error": "Not enough rows to create sequences."}
             )
 
         X_seq = create_sequences(X, WINDOW)
-        logger.info(f"Sequences created: {len(X_seq)}")
 
-        # Prediction
-        logger.info("Running model prediction")
         y_prob = model.predict(X_seq)
         y_pred = (y_prob > 0.5).astype(int)
 
@@ -114,11 +103,7 @@ async def predict(file: UploadFile = File(...)):
 
     except Exception as e:
         logger.error(f"Prediction failed: {str(e)}")
-        return JSONResponse(
-            status_code=500,
-            content={"error": str(e)}
-        )
-
+        return JSONResponse(status_code=500, content={"error": str(e)})
 
 import logging
 from datetime import datetime
@@ -185,3 +170,70 @@ def get_logs():
     all_logs.sort(key=lambda x: x["time"], reverse=True)
 
     return all_logs
+
+@app.post("/api/trust-score")
+def get_trust_score(data: dict):
+    global uploaded_df
+
+    try:
+        if uploaded_df is None:
+            return JSONResponse(
+                status_code=400,
+                content={"error": "No dataset uploaded yet"}
+            )
+
+        srcip = data.get("srcip")
+
+        if not srcip:
+            return JSONResponse(
+                status_code=400,
+                content={"error": "srcip is required"}
+            )
+
+        if "srcip" not in uploaded_df.columns:
+            return JSONResponse(
+                status_code=400,
+                content={"error": "srcip column not found"}
+            )
+
+        device_df = uploaded_df[uploaded_df["srcip"] == srcip]
+
+        if device_df.empty:
+            return {
+                "srcip": srcip,
+                "trust_score": 100,
+                "timeline": {"labels": [], "values": []},
+                "anomalies": []
+            }
+
+        df = device_df.copy()
+
+        df = preprocessor.preprocess(df)
+        df = feature_engineer.apply(df)
+        df = trust_engine.apply(df)
+
+        trust_score = round(float(df["Trust_Score"].mean()) * 100, 2)
+
+        # 🔥 Build timeline
+        timeline_df = (
+            df.groupby(df.index // 10)["Trust_Score"]
+            .mean()
+            .reset_index()
+        )
+
+        timeline = {
+            "labels": timeline_df.index.astype(str).tolist(),
+            "values": (timeline_df["Trust_Score"] * 100).round(2).tolist()
+        }
+
+        return {
+            "srcip": srcip,
+            "trust_score": trust_score,
+            "timeline": timeline,
+            "anomalies": []
+        }
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JSONResponse(status_code=500, content={"error": str(e)})

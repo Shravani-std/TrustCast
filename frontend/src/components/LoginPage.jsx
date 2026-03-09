@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Shield, ArrowLeft, Lock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = ({ onNavigate, onLogin }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -26,8 +28,9 @@ const LoginPage = ({ onNavigate, onLogin }) => {
       </div>
 
       <div className="relative z-10 w-full max-w-5xl">
+
         <button
-          onClick={() => onNavigate('home')}
+          onClick={() => navigate('/')}
           className="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white mb-8 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />

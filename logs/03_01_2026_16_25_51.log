@@ -1,0 +1,25 @@
+2026-03-01 16:26:15,840 | INFO | Prediction request received
+2026-03-01 16:26:16,252 | INFO | CSV loaded successfully. Shape: (40043, 49)
+2026-03-01 16:26:16,252 | INFO | Starting preprocessing
+2026-03-01 16:26:16,252 - MLProjectLogger - INFO - Starting preprocessing...
+2026-03-01 16:26:16,252 | INFO | Starting preprocessing...
+2026-03-01 16:26:16,460 - MLProjectLogger - INFO - Preprocessing completed.
+2026-03-01 16:26:16,460 | INFO | Preprocessing completed.
+2026-03-01 16:26:16,469 | INFO | Applying feature engineering
+2026-03-01 16:26:16,469 - MLProjectLogger - INFO - Applying feature engineering...
+2026-03-01 16:26:16,469 | INFO | Applying feature engineering...
+2026-03-01 16:26:16,483 - MLProjectLogger - INFO - Feature engineering done.
+2026-03-01 16:26:16,483 | INFO | Feature engineering done.
+2026-03-01 16:26:16,484 | INFO | Applying trust engine transformation
+2026-03-01 16:26:16,484 - MLProjectLogger - INFO - Applying Trust Engine...
+2026-03-01 16:26:16,484 | INFO | Applying Trust Engine...
+2026-03-01 16:26:16,492 - MLProjectLogger - INFO - Trust scoring completed.
+2026-03-01 16:26:16,492 | INFO | Trust scoring completed.
+2026-03-01 16:26:16,493 | INFO | Dropping Label column
+2026-03-01 16:26:16,605 | INFO | Numeric feature count: 112
+2026-03-01 16:26:16,966 | INFO | Scaling completed
+2026-03-01 16:26:17,540 | INFO | Sequences created: 40023
+2026-03-01 16:26:17,542 | INFO | Running model prediction
+2026-03-01 16:26:37,386 | INFO | Prediction completed successfully
+2026-03-01 16:27:17,282 | INFO | Trust score request for 175.45.176.1
+2026-03-01 16:27:17,282 | ERROR | [Errno 2] No such file or directory: 'sample_device_logs.csv'

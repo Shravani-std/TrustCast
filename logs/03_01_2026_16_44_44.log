@@ -1,0 +1,20 @@
+2026-03-01 16:46:54,746 | INFO | Prediction request received
+2026-03-01 16:46:55,067 | INFO | CSV loaded successfully. Shape: (40043, 49)
+2026-03-01 16:46:55,067 | INFO | Starting preprocessing...
+2026-03-01 16:46:55,217 | INFO | Preprocessing completed.
+2026-03-01 16:46:55,225 | INFO | Applying feature engineering...
+2026-03-01 16:46:55,239 | INFO | Feature engineering done.
+2026-03-01 16:46:55,241 | INFO | Applying Trust Engine...
+2026-03-01 16:46:55,249 | INFO | Trust scoring completed.
+2026-03-01 16:47:27,685 | INFO | Prediction completed successfully
+2026-03-01 16:50:02,709 | INFO | Prediction request received
+2026-03-01 16:50:03,090 | INFO | CSV loaded successfully. Shape: (40043, 49)
+2026-03-01 16:50:03,103 | INFO | Starting preprocessing...
+2026-03-01 16:50:03,245 | INFO | Preprocessing completed.
+2026-03-01 16:50:03,245 | INFO | Applying feature engineering...
+2026-03-01 16:50:03,261 | INFO | Feature engineering done.
+2026-03-01 16:50:03,261 | INFO | Applying Trust Engine...
+2026-03-01 16:50:03,272 | INFO | Trust scoring completed.
+2026-03-01 16:50:18,623 | INFO | Prediction completed successfully
+2026-03-01 16:50:25,899 | INFO | Trust score request for 59.166.0.6
+2026-03-01 16:50:25,899 | ERROR | 'NoneType' object has no attribute 'columns'
