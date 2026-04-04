@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Shield, ArrowLeft, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { api } from "../lib/apiClient";
 
 const RegisterPage = ({ onNavigate, onRegister }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,10 +39,22 @@ const RegisterPage = ({ onNavigate, onRegister }) => {
     }
 
     setErrors({});
-    // Simulate registration
-    if (formData.email && formData.password) {
-      onRegister();
-    }
+    setLoading(true);
+
+    api.post("/auth/register", {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      organization: formData.organization,
+    })
+      .then((res) => {
+        onRegister(res.data);
+      })
+      .catch((err) => {
+        const detail = err?.response?.data?.detail || "Registration failed";
+        setErrors({ api: detail });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -202,14 +216,21 @@ const RegisterPage = ({ onNavigate, onRegister }) => {
               type="submit"
               className="w-full rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_20px_45px_rgba(220,38,38,0.45)] hover:bg-red-500 transition-all"
             >
-              Create Account
+              {loading ? "Creating account..." : "Create Account"}
             </button>
+            {errors.api && <p className="text-xs text-red-400">{errors.api}</p>}
 
             <div className="text-center text-sm text-gray-400">
               Already have an account?{' '}
               <button
                 type="button"
-                onClick={() => onNavigate('login')}
+                onClick={() => {
+                  if (typeof onNavigate === "function") {
+                    onNavigate("login");
+                    return;
+                  }
+                  navigate("/login");
+                }}
                 className="font-semibold text-red-500 hover:text-red-400 transition-colors"
               >
                 Sign in

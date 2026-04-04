@@ -111,16 +111,17 @@
 // }
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from "../lib/apiClient";
 
 export default function DevicesPage() {
   const navigate = useNavigate();
   const [devices, setDevices] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/devices")
-      .then(res => setDevices(res.data))
-      .catch(err => console.error(err));
+    api
+      .get("/api/devices")
+      .then((res) => setDevices(res.data))
+      .catch((err) => console.error(err));
   }, []);
 
   const statusColor = (status) => {

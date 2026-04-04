@@ -1,4 +1,3 @@
-=======
 # Node / React
 node_modules/
 dist/
@@ -38,18 +37,16 @@ tmp/
 .env.local
 .venv/
 venv/
+trustcast_env/
+trustcast_auth.db
 
 # IDE files
 .vscode/
 .idea/
+.zen/
 
 # OS files
 .DS_Store
 Thumbs.db
 
 # Other
-
-=======
-.zen/
-=======
-

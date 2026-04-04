@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -22,13 +22,53 @@ import DeviceDetails from "./components/DeviceDetails";
 import DevicesPage from "./components/DevicePage";
 import { ThemeProvider } from "./components/ThemeContext";
 import Dashboard from "./components/Dashboard";
+import { api, authStorage } from "./lib/apiClient";
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
   const [uploadedData, setUploadedData] = useState([]);
 
-  const handleLogin = () => setIsAuthenticated(true);
-  const handleRegister = () => setIsAuthenticated(true);
-  const handleLogout = () => setIsAuthenticated(false);
+  useEffect(() => {
+    const token = authStorage.getToken();
+    if (!token) {
+      setAuthReady(true);
+      return;
+    }
+
+    api
+      .get("/auth/me")
+      .then(() => setIsAuthenticated(true))
+      .catch(() => {
+        authStorage.clearToken();
+        setIsAuthenticated(false);
+      })
+      .finally(() => setAuthReady(true));
+  }, []);
+
+  const handleLogin = (authPayload) => {
+    authStorage.setToken(authPayload.access_token);
+    localStorage.setItem('user', JSON.stringify(authPayload.user));
+    setIsAuthenticated(true);
+  };
+
+  const handleRegister = (authPayload) => {
+    authStorage.setToken(authPayload.access_token);
+    localStorage.setItem('user', JSON.stringify(authPayload.user));
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    authStorage.clearToken();
+    setIsAuthenticated(false);
+  };
+
+  if (!authReady) {
+    return (
+      <div className="min-h-screen grid place-items-center text-slate-400">
+        Checking authentication...
+      </div>
+    );
+  }
 
   return (
     <Router>

@@ -14,4 +14,24 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+      },
+      "/predict": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+      },
+      "/logs": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+      },
+      "/auth": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+      },
+    },
+  },
 });

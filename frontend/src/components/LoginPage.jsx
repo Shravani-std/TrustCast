@@ -1,22 +1,35 @@
 import React, { useState } from 'react';
 import { Shield, ArrowLeft, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { api } from "../lib/apiClient";
 
 const LoginPage = ({ onNavigate, onLogin }) => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+const [formData, setFormData] = useState({
     email: '',
     password: '',
-    twoFactor: '',
     rememberDevice: false
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate login
-    if (formData.email && formData.password) {
-      onLogin();
-    }
+    setError("");
+    setLoading(true);
+
+    api.post("/auth/login", {
+      email: formData.email,
+      password: formData.password,
+    })
+      .then((res) => {
+        onLogin(res.data);
+      })
+      .catch((err) => {
+        const message = err?.response?.data?.detail || "Login failed";
+        setError(message);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -90,17 +103,7 @@ const LoginPage = ({ onNavigate, onLogin }) => {
               />
             </label>
 
-            <label className="block">
-              <span className="text-sm font-semibold text-gray-300 mb-1 block">2FA Code</span>
-              <input
-                type="text"
-                value={formData.twoFactor}
-                onChange={(e) => setFormData({ ...formData, twoFactor: e.target.value })}
-                className="w-full rounded-xl border border-gray-800 bg-black/60 px-4 py-3 text-sm tracking-[0.5em] text-white placeholder-gray-500 focus:border-red-500 focus:outline-none transition-colors"
-                placeholder="123456"
-                maxLength="6"
-              />
-            </label>
+
 
             <div className="flex items-center justify-between text-xs">
               <label className="flex items-center gap-2 text-gray-400 cursor-pointer">
@@ -124,14 +127,21 @@ const LoginPage = ({ onNavigate, onLogin }) => {
               type="submit"
               className="w-full rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_20px_45px_rgba(220,38,38,0.45)] hover:bg-red-500 transition-all"
             >
-              Sign in securely
+              {loading ? "Signing in..." : "Sign in securely"}
             </button>
+            {error && <p className="text-xs text-red-400">{error}</p>}
 
             <div className="text-center text-sm text-gray-400">
               Don't have an account?{' '}
               <button
                 type="button"
-                onClick={() => onNavigate('register')}
+                onClick={() => {
+                  if (typeof onNavigate === "function") {
+                    onNavigate("register");
+                    return;
+                  }
+                  navigate("/register");
+                }}
                 className="font-semibold text-red-500 hover:text-red-400 transition-colors"
               >
                 Sign up

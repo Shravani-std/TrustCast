@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Upload, Hash, FileBadge, Loader2 } from "lucide-react";
-import axios from "axios";
+import { api } from "../lib/apiClient";
 
-const FileUpload = ({ setData }) => {
+// `setData` is optional because this component is used in both public and authenticated routes.
+const FileUpload = ({ setData = () => {} }) => {
   const [fileMeta, setFileMeta] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [file, setFile] = useState(null);
@@ -90,19 +91,26 @@ const FileUpload = ({ setData }) => {
       setLoading(true);
       setResult(null);
 
-      const response = await axios.post(
-        "http://127.0.0.1:8000/predict",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const response = await api.post("/predict", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       setResult(response.data);
 
     } catch (error) {
       console.error("Prediction error:", error);
-      alert("Error connecting to backend.");
+      const isNetworkError = error?.code === "ERR_NETWORK";
+      const serverUrl = import.meta.env.VITE_API_BASE_URL?.trim() || "http://localhost:8000";
+
+      if (isNetworkError) {
+        alert(
+          `Cannot reach backend at ${serverUrl}.\n` +
+          "Start FastAPI server first (e.g. uvicorn app:app --reload --port 8000)."
+        );
+      } else {
+        const apiError = error?.response?.data?.error;
+        alert(apiError ? `Prediction failed: ${apiError}` : "Prediction request failed.");
+      }
     } finally {
       setLoading(false);
     }

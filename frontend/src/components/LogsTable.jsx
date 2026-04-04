@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from "../lib/apiClient";
 
 const LogsTable = () => {
   const [logs, setLogs] = useState([]);
@@ -11,8 +11,8 @@ const LogsTable = () => {
 
   // Fetch logs from backend
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/logs")
+    api
+      .get("/logs")
       .then((res) => {
         setLogs(res.data);
         setFilteredLogs(res.data);

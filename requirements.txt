@@ -1,54 +1,17 @@
 fastapi
 uvicorn[standard]
-python=3.11.0
 numpy
 pandas
-# python=3.11.0
-numpy
-python=3.11.0
 scikit-learn==1.5.2
-pyarrow
-=======
-pandas
-# python=3.11.0
-numpy
-scikit-learn==1.5.2
-pyarrow
-=======
-python=3.11.0
-=======
-numpy
-scikit-learn==1.5.2
-pyarrow
-=======
-scikit-learn==1.5.2
-pyarrow
-=======
-python=3.11.0
-numpy
-scikit-learn
->>>>>>> ceb97c06e6ca5e3b8ea121ed2933215a1ce4636f
-pyarrow
-=======
-scikit-learn==1.5.2
-pyarrow
-=======
-pandas
-# python=3.11.0
-numpy
-scikit-learn==1.5.2
-pyarrow
-=======
-python=3.11.0
-numpy
-scikit-learn
->>>>>>> ceb97c06e6ca5e3b8ea121ed2933215a1ce4636f
 pyarrow
 joblib
-torch           
+torch
 matplotlib
 mlflow
 xgboost
 optuna
 pydantic
 python-dotenv
+zenml[server]
+tensorflow
+PyJWT

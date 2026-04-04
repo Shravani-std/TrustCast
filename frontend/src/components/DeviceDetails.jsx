@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { label, p, ul } from "framer-motion/client";
+import { api } from "../lib/apiClient";
 
 const DeviceDetails = () => {
   const { ip } = useParams();
@@ -29,10 +29,7 @@ const DeviceDetails = () => {
       try {
         setLoading(true);
 
-        const response = await axios.post(
-          "http://localhost:8000/api/trust-score",
-          { srcip: deviceIP }
-        );
+        const response = await api.post("/api/trust-score", { srcip: deviceIP });
 
         const data = response.data;
         const trust = data.trust_score || 0;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { api } from "../lib/apiClient";
 
 const ApiPlayground = () => {
   const [deviceId, setDeviceId] = useState("");
@@ -15,12 +15,7 @@ const ApiPlayground = () => {
     try {
       setLoading(true);
 
-      const response = await axios.post(
-        "http://localhost:8000/api/trust-score",
-        {
-          srcip: deviceId
-        }
-      );
+      const response = await api.post("/api/trust-score", { srcip: deviceId });
 
       setResult(response.data);
 

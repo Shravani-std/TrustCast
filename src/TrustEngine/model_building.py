@@ -1,5 +1,5 @@
 import tensorflow as tf #type:ignore
-from tensorflow.keras.layers import Input, Dense, Dropout, Bidirectional, GRU, Layer #type:ignore
+from keras.layers import Input, Dense, Dropout, Bidirectional, GRU, Layer
 from tensorflow.keras.models import Model #type:ignore
  
 
