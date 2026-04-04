@@ -30,6 +30,7 @@ from src.TrustEngine.trust_engine import TrustEngine
 from src.TrustEngine.model_building import AttentionLayer
 from src.TrustEngine.data_preprocessing import DataPreprocessing
 
+
 uploaded_df = None
 APP_DIR = Path(__file__).resolve().parent
 
@@ -63,6 +64,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+MODEL_PATH = "D:\\AI\\TrustCast\\models\\trustcast_bigru_attention.h5"
+SCALER_PATH = "D:\\AI\\TrustCast\\models\\scaler.pkl"
+FEATURE_PATH = "D:\\AI\\TrustCast\\models\\feature_columns.pkl"
+
+
+model = tf.keras.models.load_model(
+    MODEL_PATH,
+    custom_objects={"AttentionLayer": AttentionLayer},
+    compile=False
+)
+
+scaler = joblib.load(SCALER_PATH)
+feature_columns = joblib.load(FEATURE_PATH)
 # ── Auth setup ──
 DB_PATH = Path(os.getenv("AUTH_DB_PATH", str(APP_DIR / "trustcast_auth.db")))
 JWT_SECRET = os.getenv("JWT_SECRET", "change-me-in-production")
