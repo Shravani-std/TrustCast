@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+# from dotenv import load_dotenv
 
 class SignupModel(BaseModel):
     full_name: str
