@@ -11,6 +11,7 @@ import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import AboutPage from "./components/AboutPage";
 import ContactPage from "./components/ContactPage";
+import ContactThanks from "./components/ContactThanks";
 import FileUpload from "./components/FileUpload";
 import Sidebar from "./components/Sidebar";
 import TopNav from "./components/TopNav";
@@ -43,6 +44,7 @@ const App = () => {
           />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact/thanks" element={<ContactThanks />} />
           <Route path="/upload" element={<FileUpload />} />
 
           <Route path="*" element={<Navigate to="/" />} />

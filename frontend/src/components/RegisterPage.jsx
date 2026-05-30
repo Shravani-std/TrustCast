@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Shield, ArrowLeft, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const RegisterPage = ({ onNavigate, onRegister }) => {
+const RegisterPage = ({ onRegister }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
@@ -14,9 +14,13 @@ const RegisterPage = ({ onNavigate, onRegister }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage('');
+
     const newErrors = {};
 
     if (formData.password !== formData.confirmPassword) {
@@ -37,9 +41,41 @@ const RegisterPage = ({ onNavigate, onRegister }) => {
     }
 
     setErrors({});
-    // Simulate registration
-    if (formData.email && formData.password) {
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:8000/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          full_name: formData.name,
+          email: formData.email,
+          organization: formData.organization,
+          password: formData.password,
+          confirm_password: formData.confirmPassword
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrorMessage(data.detail || data.error || 'Registration failed');
+        return;
+      }
+
+      localStorage.setItem('token', data.access_token);
+      localStorage.setItem('user', JSON.stringify({
+        full_name: formData.name,
+        email: formData.email,
+        organization: formData.organization
+      }));
+
       onRegister();
+      navigate('/dashboard');
+    } catch (err) {
+      setErrorMessage('Unable to connect to the server.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -202,14 +238,16 @@ const RegisterPage = ({ onNavigate, onRegister }) => {
               type="submit"
               className="w-full rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_20px_45px_rgba(220,38,38,0.45)] hover:bg-red-500 transition-all"
             >
-              Create Account
+              {loading ? 'Creating account...' : 'Create Account'}
             </button>
-
+            {errorMessage && (
+              <p className="text-sm text-red-400 text-center mt-2">{errorMessage}</p>
+            )}
             <div className="text-center text-sm text-gray-400">
               Already have an account?{' '}
               <button
                 type="button"
-                onClick={() => onNavigate('login')}
+                onClick={() => navigate('/login')}
                 className="font-semibold text-red-500 hover:text-red-400 transition-colors"
               >
                 Sign in

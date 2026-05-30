@@ -3,14 +3,17 @@ import pandas as pd #type:ignore
 import joblib #type:ignore
 import tensorflow as tf #type:ignore
 import os
-from fastapi import FastAPI, UploadFile, File #type:ignore
+from fastapi import FastAPI, UploadFile, File, HTTPException #type:ignore
 from fastapi.middleware.cors import CORSMiddleware #type:ignore
 from fastapi.responses import JSONResponse #type:ignore
-from src.TrustEngine.feature_eng import FeatureEngineering
 from src.TrustEngine.feature_eng import FeatureEngineering
 from src.TrustEngine.trust_engine import TrustEngine
 from src.TrustEngine.model_building import AttentionLayer
 from src.TrustEngine.data_preprocessing import DataPreprocessing
+from models import SignupModel, LoginModel
+from database import users_collection, contacts_collection
+from auth import hash_password, verify_password, create_access_token
+from datetime import datetime
 
 uploaded_df = None
 app = FastAPI()
@@ -306,6 +309,129 @@ def get_devices():
     return devices
 
 
+# ==========================
+# SIGNUP
+# ==========================
 
+@app.post("/signup")
+async def signup(user: SignupModel):
+
+    existing_user = await users_collection.find_one(
+        {"email": user.email}
+    )
+
+    if existing_user:
+        raise HTTPException(
+            status_code=400,
+            detail="Email already registered"
+        )
+
+    if user.password != user.confirm_password:
+        raise HTTPException(
+            status_code=400,
+            detail="Passwords do not match"
+        )
+
+    new_user = {
+        "full_name": user.full_name,
+        "email": user.email,
+        "organization": user.organization,
+        "password": hash_password(user.password),
+        "is_verified": False,
+        "created_at": datetime.utcnow(),
+        "last_login": None
+    }
+
+    result = await users_collection.insert_one(
+        new_user
+    )
+
+    token = create_access_token(
+        {"email": user.email}
+    )
+
+    return {
+        "message": "Account created successfully",
+        "user_id": str(result.inserted_id),
+        "access_token": token
+    }
+
+
+# ==========================
+# LOGIN
+# ==========================
+
+@app.post("/login")
+async def login(user: LoginModel):
+
+    db_user = await users_collection.find_one(
+        {"email": user.email}
+    )
+
+    if not db_user:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Email"
+        )
+
+    if not verify_password(
+        user.password,
+        db_user["password"]
+    ):
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid Password"
+        )
+
+    await users_collection.update_one(
+        {"email": user.email},
+        {
+            "$set": {
+                "last_login": datetime.utcnow()
+            }
+        }
+    )
+
+    token = create_access_token(
+        {
+            "email": db_user["email"],
+            "name": db_user["full_name"]
+        }
+    )
+
+    return {
+        "message": "Login Successful",
+        "access_token": token,
+        "user": {
+            "full_name": db_user["full_name"],
+            "email": db_user["email"],
+            "organization": db_user.get("organization", "")
+        }
+    }
+
+
+
+@app.post("/contact")
+async def submit_contact(payload: dict):
+    """Save contact form submissions to MongoDB 'contacts' collection."""
+    name = payload.get("name")
+    email = payload.get("email")
+    subject = payload.get("subject")
+    message = payload.get("message")
+
+    if not name or not email or not message:
+        raise HTTPException(status_code=400, detail="name, email and message are required")
+
+    doc = {
+        "name": name,
+        "email": email,
+        "subject": subject,
+        "message": message,
+        "created_at": datetime.utcnow()
+    }
+
+    result = await contacts_collection.insert_one(doc)
+
+    return {"message": "Message received", "id": str(result.inserted_id)}
 
 

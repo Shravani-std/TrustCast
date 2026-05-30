@@ -112,5 +112,8 @@ Kaggle Datasets
 
 
 
-
+Run cmds:
+conda activate trustcast (both in frontend and main folder)
+npm run Dev
+uvicorn app:app --reloade
 

@@ -12,9 +12,28 @@ const ContactPage = ({ onNavigate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    // Submit to backend
+    (async () => {
+      try {
+        const res = await fetch('http://localhost:8000/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          alert(data.detail || data.error || 'Failed to send message');
+          return;
+        }
+
+        // Navigate to a dedicated thank-you page
+        navigate('/contact/thanks');
+      } catch (err) {
+        alert('Unable to send message — server unreachable.');
+      }
+    })();
   };
 
   return (

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Shield, ArrowLeft, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage = ({ onNavigate, onLogin }) => {
+const LoginPage = ({ onLogin }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -10,12 +10,40 @@ const LoginPage = ({ onNavigate, onLogin }) => {
     twoFactor: '',
     rememberDevice: false
   });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate login
-    if (formData.email && formData.password) {
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:8000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          two_factor_code: formData.twoFactor
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.detail || data.error || 'Login failed');
+        return;
+      }
+
+      localStorage.setItem('token', data.access_token);
+      localStorage.setItem('user', JSON.stringify(data.user || {}));
       onLogin();
+      navigate('/dashboard');
+    } catch (err) {
+      setError('Unable to connect to the server.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -124,14 +152,16 @@ const LoginPage = ({ onNavigate, onLogin }) => {
               type="submit"
               className="w-full rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_20px_45px_rgba(220,38,38,0.45)] hover:bg-red-500 transition-all"
             >
-              Sign in securely
+              {loading ? 'Signing in...' : 'Sign in securely'}
             </button>
-
+            {error && (
+              <p className="text-sm text-red-400 text-center mt-2">{error}</p>
+            )}
             <div className="text-center text-sm text-gray-400">
               Don't have an account?{' '}
               <button
                 type="button"
-                onClick={() => onNavigate('register')}
+                onClick={() => navigate('/register')}
                 className="font-semibold text-red-500 hover:text-red-400 transition-colors"
               >
                 Sign up

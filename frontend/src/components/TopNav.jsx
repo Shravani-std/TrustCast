@@ -48,14 +48,7 @@ transition-colors
             <UserRound className="h-4 w-4 text-slate-500 dark:text-gray-300" />
           </div>
 
-          <div>
-            <p className="text-xs font-semibold text-slate-900 dark:text-white">
-              Dr. Vega
-            </p>
-            <p className="text-[11px] text-slate-500 dark:text-gray-400">
-              Admin
-            </p>
-          </div>
+          
         </div>
 
         {onLogout && (
